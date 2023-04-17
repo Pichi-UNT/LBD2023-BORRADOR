@@ -1,4 +1,4 @@
-USE lbd2023g2;
+USE LBD2023G2;
 
 INSERT INTO usuario (IdUsuario, Nombre, Apellido, Correo, Telefono, Cuenta, Pass, Estado)
 VALUES (1, 'Juan', 'Pérez', 'juan.perez@example.com', '1234567890', 'juanperez', 'password1', 'A'),
@@ -53,7 +53,7 @@ VALUES (1, 4, 'Formación en Desarrollo Web', 'Observacion 1'),
        (19, 6, 'Formación en Programación en PHP', 'Observacion 12'),
        (20, 14, 'Habilidades en Gestión del Tiempo', 'Observacion 13');
 
-INSERT INTO curriculum (IdCurriculum ,IdUsuario , Curriculum, Descripcion, Banner, ImagenPerfil, Estado)
+INSERT INTO curriculum (IdCurriculum ,IdUsuario , curriculum, Descripcion, Banner, ImagenPerfil, Estado)
 VALUES (1,1,'Curriculum1','Lorem ipsum dolor sit amet. Et exercitationem consequatur hic consequatur recusandae non corrupti nobis et totam omnis. Et dolorem cumque qui quia fuga et ducimus magni 33 laboriosam maxime et maiores dolor. ','banner1','imagen1','A'),
 (2,2,'Curriculum2',NULL,'banner2','imagen2','A'),
 (3,3,'Curriculum3','Non aliquam officia nam iusto ratione eos doloribus eius et mollitia provident est tempora autem qui voluptate harum. Ut suscipit incidunt et quia iure ab optio nesciunt ab consequatur voluptas aut sequi vero. Sit odit ullam et dicta quia et neque maxime et natus blanditiis ex maiores veritatis quo ducimus consequuntur ea voluptatem reprehenderit. In nihil nostrum ut praesentium dolore et quia corrupti sed quis eligendi ut eius placeat sit esse omnis! ','banner3','imagen3','A'),

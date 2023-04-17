@@ -1,19 +1,36 @@
 CREATE SCHEMA IF NOT EXISTS LBD2023G2;
 USE LBD2023G2;
 
+DELETE FROM componenteCurriculum;
+DELETE FROM formacion;
+DELETE FROM habilidad;
+DELETE FROM experiencia;
+DELETE FROM idiomaUsuario;
+DELETE FROM proyectoCurriculum;
+DELETE FROM proyecto;
+DELETE FROM idioma;
+DELETE FROM curriculum;
+DELETE FROM componente;
+DELETE FROM redSocialUsuario;
+DELETE FROM redSocial;
+DELETE FROM usuario;
+-- Eliminar tablas en el orden correcto para evitar conflictos de clave foránea
 DROP TABLE IF EXISTS componenteCurriculum;
 DROP TABLE IF EXISTS formacion;
 DROP TABLE IF EXISTS habilidad;
 DROP TABLE IF EXISTS experiencia;
 DROP TABLE IF EXISTS idiomaUsuario;
-DROP TABLE IF EXISTS proyectocurriculum;
+DROP TABLE IF EXISTS proyectoCurriculum;
 DROP TABLE IF EXISTS proyecto;
 DROP TABLE IF EXISTS idioma;
 DROP TABLE IF EXISTS curriculum;
 DROP TABLE IF EXISTS componente;
-DROP TABLE IF EXISTS redsocialusuario;
-DROP TABLE IF EXISTS redsocial;
+DROP TABLE IF EXISTS redSocialUsuario;
+DROP TABLE IF EXISTS redSocial;
 DROP TABLE IF EXISTS usuario;
+
+-- Reactivar restricciones de clave foránea
+SET FOREIGN_KEY_CHECKS = 1;
 
 --
 -- TABLE: usuario
@@ -46,7 +63,7 @@ CREATE TABLE IF NOT EXISTS componente
 (
     IdComponente INT AUTO_INCREMENT,
     IdUsuario    INT NOT NULL,
-    Titulo       VARCHAR(150),
+    Componente       VARCHAR(150),
     Observacion  TEXT,
     PRIMARY KEY (IdComponente, IdUsuario),
     UNIQUE INDEX UI_IdComponente (IdComponente),
@@ -66,14 +83,14 @@ CREATE TABLE IF NOT EXISTS curriculum
 (
     IdCurriculum INT AUTO_INCREMENT,
     IdUsuario    INT          NOT NULL,
-    Titulo       VARCHAR(100) NOT NULL,
+    Curriculum       VARCHAR(100) NOT NULL,
     Descripcion  TEXT,
     Banner       VARCHAR(80),
     ImagenPerfil VARCHAR(80)  NOT NULL,
     Estado       CHAR(1)      NOT NULL DEFAULT 'V', -- V: Visible I: Invisible
     PRIMARY KEY (IdCurriculum),
-    INDEX IX_Curriculum (Titulo),
-    UNIQUE INDEX UX_CurriculumIdUsuario (Titulo, IdUsuario),
+    INDEX IX_curriculum (Curriculum),
+    UNIQUE INDEX UX_CurriculumIdUsuario (Curriculum, IdUsuario),
     INDEX Ref227 (IdUsuario),
     CONSTRAINT Refusuario272 FOREIGN KEY (IdUsuario)
         REFERENCES usuario (IdUsuario)
@@ -210,7 +227,7 @@ CREATE TABLE IF NOT EXISTS proyecto
 (
     IdProyecto  INT AUTO_INCREMENT,
     IdUsuario   INT          NOT NULL,
-    Titulo      VARCHAR(150) NOT NULL,
+    Proyecto      VARCHAR(150) NOT NULL,
     FechaInicio DATE         NOT NULL,
     FechaFin    DATE,
     Link        VARCHAR(120),
@@ -218,8 +235,8 @@ CREATE TABLE IF NOT EXISTS proyecto
     Descripcion TEXT,
     Recursos    JSON         NOT NULL,
     PRIMARY KEY (IdProyecto),
-    INDEX IX_Proyecto (Titulo),
-    UNIQUE INDEX UX_ProyectoIdUsuario (Titulo, IdUsuario),
+    INDEX IX_Proyecto (Proyecto),
+    UNIQUE INDEX UX_ProyectoIdUsuario (Proyecto, IdUsuario),
     INDEX Ref225 (IdUsuario),
     CONSTRAINT Refusuario252 FOREIGN KEY (IdUsuario)
         REFERENCES usuario (IdUsuario)
@@ -283,7 +300,3 @@ CREATE TABLE IF NOT EXISTS redSocialUsuario
         REFERENCES usuario (IdUsuario)
 ) ENGINE = INNODB
 ;
-
-
-
-
