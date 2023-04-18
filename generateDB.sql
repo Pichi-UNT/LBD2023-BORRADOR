@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS formacion
     FechaInicio   DATE         NOT NULL,
     FechaFin      DATE,
     Institucion   VARCHAR(100) NOT NULL,
-    TipoFormacion VARCHAR(30),
+    TipoFormacion ENUM('secundaria', 'universitaria', 'curso', 'posgrado', 'máster'),
     PRIMARY KEY (IdComponente, IdUsuario),
     INDEX Ref1423 (IdUsuario, IdComponente),
     CONSTRAINT Refcomponente232 FOREIGN KEY (IdComponente, IdUsuario)

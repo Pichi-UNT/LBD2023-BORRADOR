@@ -28,9 +28,6 @@ VALUES ('Pichi', 'Carrizo', 'pichiz@example.com', '6589898', 'pichino', 'passwor
 INSERT INTO usuario (Nombre, Apellido, Correo, Telefono, Cuenta, Pass, Rol)
 VALUES ('admin', 'admin', 'admin@example.com', '8989697968', 'admin1234', '11223344', 'A');
 
-SELECT *
-FROM usuario;
-
 INSERT INTO componente (IdComponente, IdUsuario, Componente, Observacion)
 VALUES (1, 4, 'Formación en Desarrollo Web', 'Observacion 1'),
        (2, 10, 'Habilidades en Diseño UX/UI', NULL),
