@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS formacion
     FechaInicio   DATE         NOT NULL,
     FechaFin      DATE,
     Institucion   VARCHAR(100) NOT NULL,
-    TipoFormacion ENUM('secundaria', 'universitaria', 'curso', 'posgrado', 'máster'),
+    TipoFormacion ENUM('secundaria', 'universitaria', 'curso', 'posgrado', 'máster') NOT NULL,
     PRIMARY KEY (IdComponente, IdUsuario),
     INDEX Ref1423 (IdUsuario, IdComponente),
     CONSTRAINT Refcomponente232 FOREIGN KEY (IdComponente, IdUsuario)
@@ -171,7 +171,7 @@ CREATE TABLE IF NOT EXISTS habilidad
 (
     IdComponente  INT     NOT NULL,
     IdUsuario     INT     NOT NULL,
-    TipoHabilidad CHAR(1) NOT NULL,
+    TipoHabilidad ENUM('Blanda','Dura') NOT NULL,
     Escala        TINYINT NOT NULL,
     Detalles      JSON,
     PRIMARY KEY (IdComponente, IdUsuario),
@@ -206,7 +206,7 @@ CREATE TABLE IF NOT EXISTS idiomaUsuario
 (
     IdUsuario INT     NOT NULL,
     Idioma    CHAR(3) NOT NULL,
-    Nivel     ENUM('Basico','Intermedio','Avanzado'),
+    Nivel     ENUM('Basico','Intermedio','Avanzado') NOT NULL,
     PRIMARY KEY (IdUsuario, Idioma),
     INDEX Ref25 (IdUsuario),
     INDEX Ref1016 (Idioma),
@@ -231,7 +231,7 @@ CREATE TABLE IF NOT EXISTS proyecto
     FechaInicio DATE         NOT NULL,
     FechaFin    DATE,
     Link        VARCHAR(120),
-    Estado      CHAR(1)      NOT NULL,
+    Estado      CHAR(1)      NOT NULL DEFAULT 'A',
     Descripcion TEXT,
     Recursos    JSON         NOT NULL,
     PRIMARY KEY (IdProyecto),
