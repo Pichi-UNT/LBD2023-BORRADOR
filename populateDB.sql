@@ -25,206 +25,9 @@ VALUES (1, 'Juan', 'Pérez', 'juan.perez@example.com', '1234567890', 'juanperez'
 
 INSERT INTO usuario (Nombre, Apellido, Correo, Telefono, Cuenta, Pass)
 VALUES ('Pichi', 'Carrizo', 'pichiz@example.com', '6589898', 'pichino', 'password1');
+
 INSERT INTO usuario (Nombre, Apellido, Correo, Telefono, Cuenta, Pass, Rol)
 VALUES ('admin', 'admin', 'admin@example.com', '8989697968', 'admin1234', '11223344', 'A');
-
-INSERT INTO curriculum (IdCurriculum, IdUsuario, curriculum, Descripcion, Banner, ImagenPerfil, Estado)
-VALUES (1, 5, 'Desarrollador Java', 'Lorem ipsum dolor', 'banner1.jpg', 'perfil1.jpg', 'V'),
-       (2, 7, 'Medico Anestesista', 'Lorem ipsum dolor', 'banner2.jpg', 'perfil2.jpg', 'V'),
-       (3, 15, 'Ingeniero de Sistemas', 'Lorem ipsum dolor', 'banner3.jpg', 'perfil3.jpg', 'V'),
-       (4, 10, 'Abogado Penalista', 'Lorem ipsum dolor', 'banner4.jpg', 'perfil4.jpg', 'V'),
-       (5, 3, 'Psicóloga Clínica', 'Lorem ipsum dolor', 'banner5.jpg', 'perfil5.jpg', 'V'),
-       (6, 17, 'Diseñador Gráfico', 'Lorem ipsum dolor', 'banner6.jpg', 'perfil6.jpg', 'V'),
-       (7, 9, 'Contador Público', 'Lorem ipsum dolor', 'banner7.jpg', 'perfil7.jpg', 'V'),
-       (8, 8, 'Ingeniero Civil', 'Lorem ipsum dolor', 'banner8.jpg', 'perfil8.jpg', 'V'),
-       (9, 6, 'Chef Internacional', 'Lorem ipsum dolor', 'banner9.jpg', 'perfil9.jpg', 'V'),
-       (10, 14, 'Médico Internista', 'Lorem ipsum dolor', 'banner10.jpg', 'perfil10.jpg', 'V'),
-       (11, 2, 'Ingeniero Mecánico', 'Lorem ipsum dolor', 'banner11.jpg', 'perfil11.jpg', 'V'),
-       (12, 12, 'Arquitecto', 'Lorem ipsum dolor', 'banner12.jpg', 'perfil12.jpg', 'V'),
-       (13, 20, 'Músico', 'Lorem ipsum dolor', 'banner13.jpg', 'perfil13.jpg', 'V'),
-       (14, 18, 'Periodista', 'Lorem ipsum dolor', 'banner14.jpg', 'perfil14.jpg', 'V'),
-       (15, 13, 'Economista', 'Lorem ipsum dolor', 'banner15.jpg', 'perfil15.jpg', 'V'),
-       (16, 1, 'Desarrollador Web', 'Lorem ipsum dolor', 'banner16.jpg', 'perfil16.jpg', 'V'),
-       (17, 10, 'Nutricionista', 'Lorem ipsum dolor', 'banner17.jpg', 'perfil17.jpg', 'V'),
-       (18, 4, 'Enfermera', 'Lorem ipsum dolor', 'banner18.jpg', 'perfil18.jpg', 'V'),
-       (19, 16, 'Pedagogo', 'Lorem ipsum dolor', 'banner19.jpg', 'perfil19.jpg', 'V'),
-       (20, 11, 'Abogado Laboralista', 'Lorem ipsum dolor', 'banner20.jpg', 'perfil20.jpg', 'V');
-
-
-INSERT INTO componente (IdComponente, IdUsuario, Componente, Observacion)
-VALUES (1, 4, 'Desarrollador en microsoft', 'Observacion 1'),
-       (2, 10, 'Ing. Software en Tinkun', NULL),
-       (3, 13, 'Programador senior en AWS', 'Observacion 2'),
-       (4, 5, 'Medico anestesista en hospital padilla', NULL),
-       (5, 17, 'Enfermero en hospital de niños', 'Observacion 3'),
-
-       (6, 20, 'Bachiller de CS naturales', 'Observacion 4'),
-       (7, 19, 'Curso de Javascript', NULL),
-       (8, 22, 'Curso primeros auxilios', 'Observacion 5'),
-       (9, 8, 'Congreso de Marketing Digital', 'Observacion 6'),
-       (10, 3, 'Curso de introduccion de metodologias agiles', 'Observacion 7'),
-
-       (11, 6, 'Habilidades en Análisis de Negocios', NULL),
-       (12, 1, 'Python', 'Observacion 8'),
-       (13, 7, 'Diseño de Interfaces de Usuario', NULL),
-       (14, 11, 'Programación en Java', 'Observacion 9'),
-       (15, 15, 'Móbile first', 'Observacion 10');
-
-INSERT INTO componenteCurriculum (IdCurriculum, IdUsuario, IdComponente)
-VALUES (1, 1, 4),
-       (2, 2, 10),
-       (3, 3, 13),
-       (4, 4, 5),
-       (5, 5, 17),
-       (6, 6, 20),
-       (7, 7, 19),
-       (8, 8, 22),
-       (9, 9, 8),
-       (10, 10, 3),
-       (11, 11, 6),
-       (12, 12, 1),
-       (13, 13, 7),
-       (14, 14, 11),
-       (15, 15, 15),
-       (16, 16, 18),
-       (17, 17, 9),
-       (18, 18, 1),
-       (19, 19, 6),
-       (20, 20, 14);
-
-INSERT INTO experiencia (IdComponente, IdUsuario, Empresa, FechaInicio, FechaFin, Descripcion, Hitos)
-VALUES
-(1, 4, 'Microsoft', '2018-01-01', '2019-12-31', 'Desarrollo de plataforma azure', '["Lanzamiento de la versión 1.0", "Más de 1000 usuarios registrados"]'),
-(2, 10, 'Tinkun', '2019-03-15', '2020-11-30', 'Análisis de datos de usuarios', '["Identificación de patrones de uso", "Propuesta de mejoras en la interfaz"]'),
-(3, 13, 'Amazon', '2020-06-01', '2021-09-30', 'Desarrollo de aplicaciones móviles con Flutter', '["Lanzamiento de la versión beta", "Más de 500 descargas en una semana"]'),
-(4, 5, 'Hospital Ángel C. Padilla', '2017-11-01', '2019-10-31', 'Residencia de traumatologia', '["Desarrollo de una politica hospitalaria para residentes", "Guardias nocturnas"]'),
-(5, 17, 'Hospital del Niño Jesús', '2019-08-01', '2020-07-31', 'Cuidado de pacientes', NULL );
-
-
-INSERT INTO formacion (IdComponente, IdUsuario, FechaInicio, FechaFin, Institucion, TipoFormacion)
-VALUES (6, 20, '2014-08-01', NULL, 'FACULTAD DE DERECHO', 'universitaria'),
-       (7, 19, '2016-01-01', NULL, 'INSTITUCION1', 'curso'),
-       (8, 22, '2008-05-01', NULL, 'INSTITUCION2', 'posgrado'),
-       (9, 8, '2010-09-01', '2011-12-31', 'INSTITUCION3', 'máster'),
-       (10, 3, '2017-01-01', '2017-12-31', 'INSTITUCION4', 'curso');
-
--- definir forma de detalles
-INSERT INTO habilidad (IdComponente, IdUsuario, TipoHabilidad, Escala, Detalles)
-VALUES  (11, 6, 'Blanda', 1, NULL),
-       (12, 1, 'Dura', 1, '["Django","REST","JSON encoders"]'),
-       (13, 7, 'Dura', 2, '["Figma","Invision","HTML"]'),
-       (14, 11, 'Blanda', 2, NULL),
-       (15, 15, 'Dura', 2, '["Responsive Design"]');
-
-INSERT INTO idioma (Idioma)
-VALUES ('ESP'),
-       ('ENG'),
-       ('FRA'),
-       ('GER'),
-       ('ITA');
-
-INSERT INTO idiomaUsuario (IdUsuario, Idioma, Nivel)
-VALUES (4, 'ESP', 'Basico'),
-       (17, 'ENG', 'Intermedio'),
-       (12, 'FRA', 'Avanzado'),
-       (8, 'GER', 'Basico'),
-       (8, 'ESP', 'Basico'),
-       (8, 'ENG', 'Avanzado'),
-       (19, 'ITA', 'Intermedio'),
-       (2, 'ESP', 'Avanzado'),
-       (6, 'ENG', 'Basico'),
-       (3, 'FRA', 'Intermedio'),
-       (3, 'ESP', 'Basico'),
-       (3, 'GER', 'Intermedio'),
-       (22, 'GER', 'Avanzado'),
-       (11, 'ITA', 'Basico'),
-       (11, 'FRA', 'Avanzado'),
-       (11, 'ENG', 'Basico'),
-       (5, 'ESP', 'Intermedio'),
-       (9, 'ENG', 'Avanzado'),
-       (7, 'FRA', 'Basico'),
-       (13, 'GER', 'Intermedio'),
-       (16, 'ITA', 'Avanzado'),
-       (20, 'ESP', 'Basico'),
-       (10, 'ENG', 'Intermedio'),
-       (15, 'FRA', 'Avanzado'),
-       (14, 'GER', 'Basico'),
-       (1, 'ITA', 'Intermedio');
-
--- definir forma de recursos
-INSERT INTO proyecto (IdProyecto, IdUsuario, Proyecto, FechaInicio, FechaFin, Link, Estado, Descripcion, Recursos)
-VALUES (1, 1, 'Sistema de Gestión de Ventas', '2023-04-17', '2023-04-18', 'https://link1.com', 'F',
-        'Descripción del Proyecto 1', NULL),
-       (2, 2, 'Aplicación de Recursos Humanos', '2023-04-17', '2023-04-18', 'https://link2.com', 'F',
-        'Descripción del Proyecto 2', NULL),
-       (3, 2, 'Plataforma de Gestión de Proyectos', '2023-04-17', '2023-04-18', 'https://link3.com', 'F',
-        'Descripción del Proyecto 3', NULL),
-       (4, 3, 'Sistema de Reservas de Hoteles', '2023-04-17', '2023-04-18', 'https://link4.com', 'F',
-        'Descripción del Proyecto 4', NULL),
-       (5, 4, 'Aplicación de Gestión de Tareas', '2023-04-17', '2023-04-18', 'https://link5.com', 'F',
-        'Descripción del Proyecto 5', NULL),
-       (6, 5, 'Plataforma de Comercio Electrónico', '2023-04-17', '2023-04-18', 'https://link6.com', 'F',
-        'Descripción del Proyecto 6', NULL),
-       (7, 6, 'Sistema de Gestión de Contabilidad', '2023-04-17', '2023-04-18', 'https://link7.com', 'F',
-        'Descripción del Proyecto 7', NULL),
-       (8, 7, 'Aplicación de Gestión de Inventarios', '2023-04-17', '2023-04-18', 'https://link8.com', 'F',
-        'Descripción del Proyecto 8', NULL),
-       (9, 7, 'Plataforma de Gestión de Clientes', '2023-04-17', '2023-04-18', 'https://link9.com', 'F',
-        'Descripción del Proyecto 9', NULL),
-       (10, 7, 'Sistema de Gestión de Tickets de Soporte', '2023-04-17', '2023-04-18', 'https://link10.com', 'F',
-        'Descripción del Proyecto 10', NULL),
-       (11, 8, 'Aplicación de Monitoreo de Redes', '2023-04-17', '2023-04-18', 'https://link11.com', 'F',
-        'Descripción del Proyecto 11', NULL),
-       (12, 9, 'Plataforma de Gestión de Contenidos', '2023-04-17', '2023-04-18', 'https://link12.com', 'F',
-        'Descripción del Proyecto 12', NULL),
-       (13, 10, 'Sistema de Gestión de Procesos', '2023-04-17', '2023-04-18', 'https://link13.com', 'F',
-        'Descripción del Proyecto 13', NULL),
-       (14, 11, 'Aplicación de Gestión de Proyectos', '2023-04-17', '2023-04-18', 'https://link14.com', 'F',
-        'Descripción del Proyecto 14', NULL),
-       (15, 9, 'Sistema de Gestión de Ventas en Línea', '2023-04-17', '2023-04-18', 'https://link15.com', 'F',
-        'Descripción del Proyecto 15', NULL),
-       (16, 12, 'Plataforma de Gestión de Recursos Humanos', '2023-04-17', '2023-04-18', 'https://link16.com', 'F',
-        'Descripción del Proyecto 16', NULL),
-       (17, 13, 'Sistema de Gestión de Contabilidad en la Nube', '2023-04-17', '2023-04-18', 'https://link17.com', 'F',
-        'Descripción del Proyecto 17', NULL),
-       (18, 14, 'Aplicación de Gestión de Proyectos Colaborativos', '2023-04-17', '2023-04-18', 'https://link18.com',
-        'F', 'Descripción del Proyecto 18', NULL),
-       (19, 15, 'Plataforma de Gestión de Inventario de Tienda en Línea', '2023-04-17', '2023-04-18',
-        'https://link19.com', 'F', 'Descripción del Proyecto 19', NULL),
-       (20, 20, 'Sistema de Gestión de Proyectos de Investigación', '2023-04-17', '2023-04-18', 'https://link20.com',
-        'F', 'Descripción del Proyecto 20', NULL),
-       (21, 16, 'Aplicación de Gestión de Contenido para Redes Sociales', '2023-04-17', '2023-04-18',
-        'https://link21.com', 'F', 'Descripción del Proyecto 21', NULL),
-       (22, 17, 'Plataforma de Gestión de Ventas en Línea', '2023-04-17', '2023-04-18', 'https://link22.com', 'F',
-        'Descripción del Proyecto 22', NULL),
-       (23, 18, 'Sistema de Gestión de Proyectos de Desarrollo de Software', '2023-04-17', '2023-04-18',
-        'https://link23.com', 'F', 'Descripción del Proyecto 23', NULL),
-       (24, 19, 'Aplicación de Gestión de Proyectos de Marketing Digital', '2023-04-17', '2023-04-18',
-        'https://link24.com', 'F', 'Descripción del Proyecto 24', NULL),
-       (25, 20, 'Plataforma de Gestión de Contabilidad para Pequeñas Empresas', '2023-04-17', '2023-04-18',
-        'https://link25.com', 'F', 'Descripción del Proyecto 25', NULL);
-
-INSERT INTO proyectoCurriculum (IdCurriculum, IdProyecto)
-VALUES (1, 1),
-       (2, 2),
-       (3, 3),
-       (4, 3),
-       (5, 5),
-       (6, 6),
-       (7, 7),
-       (8, 8),
-       (9, 9),
-       (10, 11),
-       (11, 11),
-       (12, 2),
-       (13, 1),
-       (14, 14),
-       (15, 15),
-       (16, 19),
-       (17, 17),
-       (18, 18),
-       (19, 19),
-       (20, 20);
 
 INSERT INTO redSocial (IdRedSocial, Red, LogoLink)
 VALUES (1, 'Facebook', 'https://www.example.com/facebook_logo.png'),
@@ -247,7 +50,7 @@ VALUES (1, 1, 5, 'https://www.ejemplo1.com'),
        (6, 22, 2, 'https://www.ejemplo6.com'),
        (7, 4, 3, 'https://www.ejemplo7.com'),
        (8, 15, 10, 'https://www.ejemplo8.com'),
-       (9, 1, 0, 'https://www.ejemplo9.com'),
+       (9, 1, 1, 'https://www.ejemplo9.com'),
        (10, 9, 6, 'https://www.ejemplo10.com'),
        (11, 5, 8, 'https://www.ejemplo11.com'),
        (12, 18, 2, 'https://www.ejemplo12.com'),
@@ -255,10 +58,172 @@ VALUES (1, 1, 5, 'https://www.ejemplo1.com'),
        (14, 20, 7, 'https://www.ejemplo14.com'),
        (15, 12, 4, 'https://www.ejemplo15.com'),
        (16, 8, 9, 'https://www.ejemplo16.com'),
-       (17, 10, 0, 'https://www.ejemplo17.com'),
+       (17, 10, 1, 'https://www.ejemplo17.com'),
        (18, 13, 5, 'https://www.ejemplo18.com'),
        (19, 19, 3, 'https://www.ejemplo19.com'),
        (20, 14, 6, 'https://www.ejemplo20.com'),
        (21, 21, 7, 'https://www.ejemplo21.com'),
        (22, 17, 10, 'https://www.ejemplo22.com'),
        (23, 16, 2, 'https://www.ejemplo23.com');
+
+
+INSERT INTO curriculum (IdCurriculum, IdUsuario, curriculum, Descripcion, Banner, ImagenPerfil, Estado)
+VALUES (1, 5, 'Desarrollador Java', 'Lorem ipsum dolor', 'banner1.jpg', 'perfil1.jpg', 'V'),
+       (2, 5, 'Medico Anestesista', 'Lorem ipsum dolor', 'banner2.jpg', 'perfil2.jpg', 'V'),
+       (3, 15, 'Ingeniero de Sistemas', 'Lorem ipsum dolor', 'banner3.jpg', 'perfil3.jpg', 'V'),
+       (4, 10, 'Abogado Penalista', 'Lorem ipsum dolor', 'banner4.jpg', 'perfil4.jpg', 'V'),
+       (5, 3, 'Psicóloga Clínica', 'Lorem ipsum dolor', 'banner5.jpg', 'perfil5.jpg', 'V'),
+       (6, 17, 'Diseñador Gráfico', 'Lorem ipsum dolor', 'banner6.jpg', 'perfil6.jpg', 'V'),
+       (7, 9, 'Contador Público', 'Lorem ipsum dolor', 'banner7.jpg', 'perfil7.jpg', 'V'),
+       (8, 6, 'Ingeniero Civil', 'Lorem ipsum dolor', 'banner8.jpg', 'perfil8.jpg', 'V'),
+       (9, 6, 'Chef Internacional', 'Lorem ipsum dolor', 'banner9.jpg', 'perfil9.jpg', 'V'),
+       (10, 14, 'Médico Internista', 'Lorem ipsum dolor', 'banner10.jpg', 'perfil10.jpg', 'V'),
+       (11, 2, 'Ingeniero Mecánico', 'Lorem ipsum dolor', 'banner11.jpg', 'perfil11.jpg', 'V'),
+       (12, 12, 'Arquitecto', 'Lorem ipsum dolor', 'banner12.jpg', 'perfil12.jpg', 'V'),
+       (13, 20, 'Músico', 'Lorem ipsum dolor', 'banner13.jpg', 'perfil13.jpg', 'V'),
+       (14, 18, 'Periodista', 'Lorem ipsum dolor', 'banner14.jpg', 'perfil14.jpg', 'V'),
+       (15, 13, 'Economista', 'Lorem ipsum dolor', 'banner15.jpg', 'perfil15.jpg', 'V'),
+       (16, 1, 'Desarrollador Web', 'Lorem ipsum dolor', 'banner16.jpg', 'perfil16.jpg', 'V'),
+       (17, 10, 'Nutricionista', 'Lorem ipsum dolor', 'banner17.jpg', 'perfil17.jpg', 'V'),
+       (18, 4, 'Enfermera', 'Lorem ipsum dolor', 'banner18.jpg', 'perfil18.jpg', 'V'),
+       (19, 16, 'Pedagogo', 'Lorem ipsum dolor', 'banner19.jpg', 'perfil19.jpg', 'V'),
+       (20, 11, 'Abogado Laboralista', 'Lorem ipsum dolor', 'banner20.jpg', 'perfil20.jpg', 'V'),
+       (21, 8, 'Abogado Arborista', 'Lorem ipsum dolor', 'banner20.jpg', 'perfil20.jpg', 'V');
+
+INSERT INTO experiencia (IdExperiencia, Empresa, FechaInicio, FechaFin, Descripcion, Hitos)
+VALUES (1, 'Microsoft', '2018-01-01', '2019-12-31', 'Desarrollo de plataforma azure', '[
+  "Lanzamiento de la versión 1.0",
+  "Más de 1000 usuarios registrados"
+]'),
+       (2, 'Tinkun', '2019-03-15', '2020-11-30', 'Análisis de datos de usuarios', '[
+         "Identificación de patrones de uso",
+         "Propuesta de mejoras en la interfaz"
+       ]'),
+       (3, 'Amazon', '2020-06-01', '2021-09-30', 'Desarrollo de aplicaciones móviles con Flutter', '[
+         "Lanzamiento de la versión beta",
+         "Más de 500 descargas en una semana"
+       ]'),
+       (4, 'Hospital Ángel C. Padilla', '2017-11-01', '2019-10-31', 'Residencia de traumatologia', '[
+         "Desarrollo de una politica hospitalaria para residentes",
+         "Guardias nocturnas"
+       ]'),
+       (5, 'Hospital del Niño Jesús', '2019-08-01', '2020-07-31', 'Cuidado de pacientes', NULL);
+
+
+INSERT INTO formacion (IdFormacion, FechaInicio, FechaFin, Institucion, TipoFormacion)
+VALUES (1, '2014-08-01', NULL, 'FACULTAD DE DERECHO', 'grado'),
+       (2, '2016-01-01', NULL, 'INSTITUCION1', 'curso'),
+       (3, '2008-05-01', NULL, 'INSTITUCION2', 'posgrado'),
+       (4, '2010-09-01', '2011-12-31', 'INSTITUCION3', 'grado'),
+       (5, '2017-01-01', '2017-12-31', 'INSTITUCION4', 'curso');
+
+-- definir forma de detalles
+INSERT INTO habilidad (IdHabilidad, TipoHabilidad, Escala, Detalles)
+VALUES (1, 'Blanda', 1, NULL),
+       (2, 'Dura', 1, '[
+         "Django",
+         "REST",
+         "JSON encoders"
+       ]'),
+       (3, 'Dura', 2, '[
+         "Figma",
+         "Invision",
+         "HTML"
+       ]'),
+       (4, 'Blanda', 2, NULL),
+       (5, 'Dura', 2, '[
+         "Responsive Design"
+       ]');
+
+
+INSERT INTO componente (IdComponente, IdUsuario, TituloComponente, Observacion, IdExperiencia, IdHabilidad, IdFormacion,
+                        IdProyecto)
+VALUES (1, 4, 'Desarrollador en microsoft', 'Observacion 1', 1, NULL, NULL, NULL),
+       (2, 10, 'Ing. Software en Tinkun', NULL, 2, NULL, NULL, NULL),
+       (3, 13, 'Programador senior en AWS', 'Observacion 2', 3, NULL, NULL, NULL),
+       (4, 5, 'Medico anestesista en hospital padilla', NULL, 4, NULL, NULL, NULL),
+       (5, 17, 'Enfermero en hospital de niños', 'Observacion 3', 5, NULL, NULL, NULL),
+
+       (6, 20, 'Bachiller de CS naturales', 'Observacion 4', NULL, 1, NULL, NULL),
+       (7, 19, 'Curso de Javascript', NULL, NULL, 2, NULL, NULL),
+       (8, 22, 'Curso primeros auxilios', 'Observacion 5', NULL, 3, NULL, NULL),
+       (9, 8, 'Congreso de Marketing Digital', 'Observacion 6', NULL, 4, NULL, NULL),
+       (10, 3, 'Curso de introduccion de metodologias agiles', 'Observacion 7', NULL, 5, NULL, NULL),
+
+       (11, 6, 'Habilidades en Análisis de Negocios', NULL, NULL, NULL, 1, NULL),
+       (12, 1, 'Python', 'Observacion 8', NULL, NULL, 2, NULL),
+       (13, 7, 'Diseño de Interfaces de Usuario', NULL, NULL, NULL, 3, NULL),
+       (14, 11, 'Programación en Java', 'Observacion 9', NULL, NULL, 4, NULL),
+       (15, 15, 'Móbile first', 'Observacion 10', NULL, NULL, 5, NULL);
+
+
+-- definir forma de recursos
+INSERT INTO proyecto (IdProyecto, FechaInicio, FechaFin, Link, Estado, Descripcion, Recursos)
+VALUES (1, '2023-04-17', '2023-04-18', 'https://link1.com', 'F', 'Descripción del Proyecto 1', NULL),
+       (2, '2023-04-17', '2023-04-18', 'https://link2.com', 'F', 'Descripción del Proyecto 2', NULL),
+       (3, '2023-04-17', '2023-04-18', 'https://link3.com', 'F', 'Descripción del Proyecto 3', NULL),
+       (4, '2023-04-17', '2023-04-18', 'https://link4.com', 'F', 'Descripción del Proyecto 4', NULL),
+       (5, '2023-04-17', '2023-04-18', 'https://link5.com', 'F', 'Descripción del Proyecto 5', NULL),
+       (6, '2023-04-17', '2023-04-18', 'https://link6.com', 'F', 'Descripción del Proyecto 6', NULL),
+       (7, '2023-04-17', '2023-04-18', 'https://link7.com', 'F', 'Descripción del Proyecto 7', NULL),
+       (8, '2023-04-17', '2023-04-18', 'https://link8.com', 'F', 'Descripción del Proyecto 8', NULL),
+       (9, '2023-04-17', '2023-04-18', 'https://link9.com', 'F', 'Descripción del Proyecto 9', NULL),
+       (10, '2023-04-17', '2023-04-18', 'https://link10.com', 'F', 'Descripción del Proyecto 10', NULL),
+       (11, '2023-04-17', '2023-04-18', 'https://link11.com', 'F', 'Descripción del Proyecto 11', NULL),
+       (12, '2023-04-17', '2023-04-18', 'https://link12.com', 'F', 'Descripción del Proyecto 12', NULL),
+       (13, '2023-04-17', '2023-04-18', 'https://link13.com', 'F', 'Descripción del Proyecto 13', NULL),
+       (14, '2023-04-17', '2023-04-18', 'https://link14.com', 'F', 'Descripción del Proyecto 14', NULL),
+       (15, '2023-04-17', '2023-04-18', 'https://link15.com', 'F', 'Descripción del Proyecto 15', NULL),
+       (16, '2023-04-17', '2023-04-18', 'https://link16.com', 'F', 'Descripción del Proyecto 16', NULL),
+       (17, '2023-04-17', '2023-04-18', 'https://link17.com', 'F', 'Descripción del Proyecto 17', NULL),
+       (18, '2023-04-17', '2023-04-18', 'https://link18.com', 'F', 'Descripción del Proyecto 18', NULL),
+       (19, '2023-04-17', '2023-04-18', 'https://link19.com', 'F', 'Descripción del Proyecto 19', NULL),
+       (20, '2023-04-17', '2023-04-18', 'https://link20.com', 'F', 'Descripción del Proyecto 20', NULL);
+
+INSERT INTO componente (IdUsuario, TituloComponente, Observacion, IdProyecto)
+VALUES (7, 'Plataforma de Gestión de Proyectos', 'Lorem ipsum dolor', 1),
+       (12, 'Sistema de Reservas de Hoteles', 'Sit amet consectetur', 2),
+       (3, 'Aplicación de Gestión de Tareas', 'Adipiscing elit sed', 3),
+       (5, 'Plataforma de Comercio Electrónico', 'Do eiusmod tempor', 4),
+       (14, 'Sistema de Gestión de Contabilidad', 'Incididunt ut labore', 5),
+       (2, 'Aplicación de Gestión de Inventarios', 'Et dolore magna', 6),
+       (9, 'Plataforma de Gestión de Clientes', 'Aliqua Ut enim', 7),
+       (3, 'Sistema de Gestión de Tickets de Soporte', 'Minim veniam quis', 8),
+       (11, 'Aplicación de Monitoreo de Redes', 'Nostrud exercitation ullamco', 9),
+       (6, 'Plataforma de Gestión de Contenidos', 'Laboris nisi ut', 10),
+       (16, 'Sistema de Gestión de Procesos', 'Aliquip ex ea', 11),
+       (1, 'Aplicación de Gestión de Proyectos', 'Commodo consequat Duis', 12),
+       (15, 'Sistema de Gestión de Ventas en Línea', 'Aute irure dolor', 13),
+       (20, 'Plataforma de Gestión de Recursos Humanos', 'Reprehenderit in voluptate', 14),
+       (4, 'Sistema de Gestión de Contabilidad en la Nube', 'Velit esse cillum', 15),
+       (8, 'Aplicación de Gestión de Proyectos Colaborativos', 'Dolore eu fugiat', 16),
+       (19, 'Plataforma de Gestión de Inventario de Tienda en Línea', 'Nulla pariatur Excepteur', 17),
+       (10, 'Sistema de Gestión de Proyectos de Investigación', 'Sint occaecat cupidatat', 18),
+       (13, 'Aplicación de Gestión de Contenido para Redes Sociales', 'Non proident sunt', 19),
+       (5, 'Plataforma de Gestión de Ventas en Línea', 'Officia deserunt mollit', 20);
+
+
+
+INSERT INTO componenteCurriculum (IdCurriculum, IdComponente, IdUsuario)
+VALUES (5, 10, 3),
+       (5, 18, 3),
+       (18, 1, 4),
+       (1, 4, 5),
+       (2, 19, 5),
+       (1, 35, 5),
+       (21, 31, 8),
+       (21, 9, 8),
+       (7, 22, 9),
+       (6, 5, 17),
+       (12, 17, 12),
+       (10, 20, 14),
+       (20, 14, 11),
+       (9, 11, 6),
+       (8, 11, 6),   # -
+       (3, 15, 15),
+       (18, 30, 4),
+       (13, 6, 20),
+       (13, 29, 20), # -
+       (3, 28, 15);
+
+
