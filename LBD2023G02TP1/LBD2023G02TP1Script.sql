@@ -1,3 +1,13 @@
+-- Año: 2023
+-- Grupo Nro: 2
+-- Integrantes: Carrizo Avellaneda Agustin, Cascales Matias Benjamin
+-- Tema: CV online
+-- Nombre del Esquema (LBD2023G2)
+-- Plataforma (SO + Versión): Windows 10
+-- Motor y Versión: 8.0.26
+-- GitHub Repositorio: LBD2023G02
+-- GitHub Usuario: Pichi-UNT , bencascales
+
 CREATE SCHEMA IF NOT EXISTS LBD2023G2;
 USE LBD2023G2;
 
