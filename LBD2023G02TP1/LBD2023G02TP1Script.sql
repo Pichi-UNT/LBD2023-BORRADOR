@@ -4,7 +4,7 @@
 -- Tema: CV online
 -- Nombre del Esquema (LBD2023G2)
 -- Plataforma (SO + Versión): Windows 10
--- Motor y Versión: 8.0.26
+-- Motor y Versión: MySQL 8.0.26
 -- GitHub Repositorio: LBD2023G02
 -- GitHub Usuario: Pichi-UNT , bencascales
 
