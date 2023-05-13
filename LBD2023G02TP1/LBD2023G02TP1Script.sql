@@ -8,8 +8,8 @@
 -- GitHub Repositorio: LBD2023G02
 -- GitHub Usuario: Pichi-UNT , bencascales
 
-CREATE SCHEMA IF NOT EXISTS LBD2023G2;
-USE LBD2023G2;
+CREATE SCHEMA IF NOT EXISTS LBD2023G02;
+USE LBD2023G02;
 
 # DELETE FROM componenteCurriculum ;
 # DELETE FROM componente;
@@ -98,13 +98,13 @@ CREATE TABLE usuario
     Apellido  VARCHAR(120) NOT NULL,
     Correo    VARCHAR(256) NOT NULL,
     Telefono  VARCHAR(15),
-    Cuenta    VARCHAR(40)  NOT NULL,
+    Nick    VARCHAR(40)  NOT NULL,
     Pass      CHAR(60)     NOT NULL,
     Estado    CHAR(1)      NOT NULL DEFAULT 'A',
     Rol       CHAR(1)      NOT NULL DEFAULT 'U',
     PRIMARY KEY (IdUsuario),
     INDEX IX_ApellidoNombre (Apellido, Nombre),
-    UNIQUE INDEX UX_Cuenta (Cuenta)
+    UNIQUE INDEX UX_Cuenta (Nick)
 ) ENGINE = INNODB
 ;
 
@@ -249,9 +249,9 @@ CREATE TABLE redSocialUsuario
 ;
 
 
-USE LBD2023G2;
+USE LBD2023G02;
 
-INSERT INTO usuario (IdUsuario, Nombre, Apellido, Correo, Telefono, Cuenta, Pass, Estado)
+INSERT INTO usuario (IdUsuario, Nombre, Apellido, Correo, Telefono, Nick, Pass, Estado)
 VALUES (1, 'Juan', 'Pérez', 'juan.perez@example.com', '1234567890', 'juanperez', 'password1', 'A'),
        (2, 'María', 'Gómez', 'maria.gomez@example.com', '9876543210', 'mariagomez', 'password2', 'A'),
        (3, 'Pedro', 'Rodríguez', 'pedro.rodriguez@example.com', '5555555555', 'pedrorodriguez', 'password3', 'A'),
@@ -274,10 +274,10 @@ VALUES (1, 'Juan', 'Pérez', 'juan.perez@example.com', '1234567890', 'juanperez'
        (19, 'Ricardo', 'Vargas', 'ricardo.vargas@example.com', '1919191919', 'ricardovargas', 'password19', 'A'),
        (20, 'Daniela', 'Castro', 'daniela.castro@example.com', '2020202020', 'danielacastro', 'password20', 'B');
 
-INSERT INTO usuario (Nombre, Apellido, Correo, Telefono, Cuenta, Pass)
+INSERT INTO usuario (Nombre, Apellido, Correo, Telefono, Nick, Pass)
 VALUES ('Pichi', 'Carrizo', 'pichiz@example.com', '6589898', 'pichino', 'password1');
 
-INSERT INTO usuario (Nombre, Apellido, Correo, Telefono, Cuenta, Pass, Rol)
+INSERT INTO usuario (Nombre, Apellido, Correo, Telefono, Nick, Pass, Rol)
 VALUES ('admin', 'admin', 'admin@example.com', '8989697968', 'admin1234', '11223344', 'A');
 
 INSERT INTO redSocial (IdRedSocial, Red, LogoLink)
