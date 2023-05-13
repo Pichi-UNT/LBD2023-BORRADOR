@@ -200,7 +200,7 @@ CREATE TABLE componenteCurriculum
     IdCurriculum INT NOT NULL,
     IdComponente INT NOT NULL,
     IdUsuario    INT NOT NULL,
-    PRIMARY KEY (IdCurriculum, IdComponente, IdUsuario),
+    PRIMARY KEY (IdCurriculum,IdUsuario, IdComponente),
     INDEX Ref319 (IdCurriculum, IdUsuario),
     INDEX Ref1436 (IdComponente, IdUsuario),
     CONSTRAINT Refcurriculum19 FOREIGN KEY (IdCurriculum, IdUsuario)
