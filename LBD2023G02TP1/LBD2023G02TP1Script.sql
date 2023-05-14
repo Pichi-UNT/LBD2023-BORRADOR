@@ -93,12 +93,12 @@ CREATE TABLE formacion
 
 CREATE TABLE usuario
 (
-    IdUsuario INT         AUTO_INCREMENT,
+    IdUsuario INT AUTO_INCREMENT,
     Nombre    VARCHAR(120) NOT NULL,
     Apellido  VARCHAR(120) NOT NULL,
     Correo    VARCHAR(256) NOT NULL,
     Telefono  VARCHAR(15),
-    Nick    VARCHAR(40)  NOT NULL,
+    Nick      VARCHAR(40)  NOT NULL,
     Pass      CHAR(60)     NOT NULL,
     Estado    CHAR(1)      NOT NULL DEFAULT 'A',
     Rol       CHAR(1)      NOT NULL DEFAULT 'U',
@@ -117,12 +117,12 @@ CREATE TABLE usuario
 CREATE TABLE proyecto
 (
     IdProyecto  INT AUTO_INCREMENT,
-    FechaInicio DATE         NOT NULL,
+    FechaInicio DATE    NOT NULL,
     FechaFin    DATE,
     Link        VARCHAR(120),
-    Estado      CHAR(1)      NOT NULL,
+    Estado      CHAR(1) NOT NULL,
     Descripcion TEXT,
-    Recursos    JSON        ,
+    Recursos    JSON,
     PRIMARY KEY (IdProyecto)
 ) ENGINE = INNODB
 ;
@@ -133,33 +133,34 @@ CREATE TABLE proyecto
 -- TABLE: componente
 --
 
-CREATE TABLE componente(
-    IdComponente     INT             AUTO_INCREMENT,
-    IdUsuario        INT             NOT NULL,
-    TituloComponente           VARCHAR(150)    NOT NULL,
+CREATE TABLE componente
+(
+    IdComponente     INT AUTO_INCREMENT,
+    IdUsuario        INT          NOT NULL,
+    TituloComponente VARCHAR(150) NOT NULL,
     Observacion      TEXT,
     IdExperiencia    INT,
     IdHabilidad      INT,
     IdFormacion      INT,
     IdProyecto       INT,
     PRIMARY KEY (IdComponente, IdUsuario),
-    UNIQUE INDEX UI_IdComponente(IdComponente),
-    INDEX Ref831(IdExperiencia),
-    INDEX Ref732(IdHabilidad),
-    INDEX Ref633(IdFormacion),
-    INDEX Ref538(IdProyecto),
-    INDEX Ref239(IdUsuario),
+    UNIQUE INDEX UI_IdComponente (IdComponente),
+    INDEX Ref831 (IdExperiencia),
+    INDEX Ref732 (IdHabilidad),
+    INDEX Ref633 (IdFormacion),
+    INDEX Ref538 (IdProyecto),
+    INDEX Ref239 (IdUsuario),
     CONSTRAINT Refexperiencia31 FOREIGN KEY (IdExperiencia)
-    REFERENCES experiencia(IdExperiencia),
+        REFERENCES experiencia (IdExperiencia),
     CONSTRAINT Refhabilidad32 FOREIGN KEY (IdHabilidad)
-    REFERENCES habilidad(IdHabilidad),
+        REFERENCES habilidad (IdHabilidad),
     CONSTRAINT Refformacion33 FOREIGN KEY (IdFormacion)
-    REFERENCES formacion(IdFormacion),
+        REFERENCES formacion (IdFormacion),
     CONSTRAINT Refproyecto38 FOREIGN KEY (IdProyecto)
-    REFERENCES proyecto(IdProyecto),
+        REFERENCES proyecto (IdProyecto),
     CONSTRAINT Refusuario39 FOREIGN KEY (IdUsuario)
-    REFERENCES usuario(IdUsuario)
-)ENGINE=INNODB;
+        REFERENCES usuario (IdUsuario)
+) ENGINE = INNODB;
 
 
 
@@ -171,22 +172,23 @@ CREATE TABLE componente(
 -- TABLE: curriculum
 --
 
-CREATE TABLE curriculum(
-    IdCurriculum    INT             AUTO_INCREMENT,
-    IdUsuario       INT             NOT NULL,
-    Curriculum      VARCHAR(150)    NOT NULL,
-    Descripcion     TEXT,
-    Banner          VARCHAR(80),
-    ImagenPerfil    VARCHAR(80)     NOT NULL,
-    Estado          CHAR(1)         NOT NULL,
+CREATE TABLE curriculum
+(
+    IdCurriculum INT AUTO_INCREMENT,
+    IdUsuario    INT          NOT NULL,
+    Curriculum   VARCHAR(150) NOT NULL,
+    Descripcion  TEXT,
+    Banner       VARCHAR(80),
+    ImagenPerfil VARCHAR(80)  NOT NULL,
+    Estado       CHAR(1)      NOT NULL,
     PRIMARY KEY (IdCurriculum, IdUsuario),
-    UNIQUE INDEX UX_IdUsuarioCurriculum(IdUsuario, Curriculum),
-    INDEX IX_Curriculum(Curriculum),
-    UNIQUE INDEX UX_IdCurriculum(IdCurriculum),
-    INDEX Ref240(IdUsuario),
+    UNIQUE INDEX UX_IdUsuarioCurriculum (IdUsuario, Curriculum),
+    INDEX IX_Curriculum (Curriculum),
+    UNIQUE INDEX UX_IdCurriculum (IdCurriculum),
+    INDEX Ref240 (IdUsuario),
     CONSTRAINT Refusuario40 FOREIGN KEY (IdUsuario)
-    REFERENCES usuario(IdUsuario)
-)ENGINE=INNODB
+        REFERENCES usuario (IdUsuario)
+) ENGINE = INNODB
 ;
 
 
@@ -200,7 +202,7 @@ CREATE TABLE componenteCurriculum
     IdCurriculum INT NOT NULL,
     IdComponente INT NOT NULL,
     IdUsuario    INT NOT NULL,
-    PRIMARY KEY (IdCurriculum,IdUsuario, IdComponente),
+    PRIMARY KEY (IdCurriculum, IdUsuario, IdComponente),
     INDEX Ref319 (IdCurriculum, IdUsuario),
     INDEX Ref1436 (IdComponente, IdUsuario),
     CONSTRAINT Refcurriculum19 FOREIGN KEY (IdCurriculum, IdUsuario)
@@ -384,7 +386,18 @@ VALUES (1, 'Blanda', 1, NULL),
        (4, 'Blanda', 2, NULL),
        (5, 'Dura', 2, '[
          "Responsive Design"
-       ]');
+       ]'),
+       (6, 'Idioma', 1, NULL),
+       (7, 'Idioma', 5, NULL),
+       (8, 'Idioma', 3, NULL),
+       (9, 'Idioma', 2, NULL),
+       (10, 'Idioma', 1, NULL),
+       (11, 'Idioma', 4, NULL),
+       (12, 'Idioma', 4, NULL),
+       (13, 'Idioma', 2, NULL),
+       (14, 'Idioma', 3, NULL),
+       (15, 'Idioma', 3, NULL);
+;
 
 
 INSERT INTO componente (IdComponente, IdUsuario, TituloComponente, Observacion, IdExperiencia, IdHabilidad, IdFormacion,
@@ -400,7 +413,6 @@ VALUES (1, 4, 'Desarrollador en microsoft', 'Observacion 1', 1, NULL, NULL, NULL
        (8, 22, 'Curso primeros auxilios', 'Observacion 5', NULL, 3, NULL, NULL),
        (9, 8, 'Congreso de Marketing Digital', 'Observacion 6', NULL, 4, NULL, NULL),
        (10, 3, 'Curso de introduccion de metodologias agiles', 'Observacion 7', NULL, 5, NULL, NULL),
-
        (11, 6, 'Habilidades en Análisis de Negocios', NULL, NULL, NULL, 1, NULL),
        (12, 1, 'Python', 'Observacion 8', NULL, NULL, 2, NULL),
        (13, 7, 'Diseño de Interfaces de Usuario', NULL, NULL, NULL, 3, NULL),
@@ -453,6 +465,19 @@ VALUES (7, 'Plataforma de Gestión de Proyectos', 'Lorem ipsum dolor', 1),
        (13, 'Aplicación de Gestión de Contenido para Redes Sociales', 'Non proident sunt', 19),
        (5, 'Plataforma de Gestión de Ventas en Línea', 'Officia deserunt mollit', 20);
 
+INSERT INTO componente (IdUsuario, TituloComponente, Observacion, IdExperiencia, IdHabilidad, IdFormacion,
+                        IdProyecto)
+VALUES (6, 'Español', 'Observacion 10', NULL, 9, NULL, NULL),
+       (8, 'Español', 'Observacion 10', NULL, 10, NULL, NULL),
+       (11, 'Ingles', 'Observacion 10', NULL, 6, NULL, NULL),
+       (4, 'Ingles', 'Observacion 10', NULL, 7, NULL, NULL),
+       (6, 'Ingles', 'Observacion 10', NULL, 8, NULL, NULL),
+       (1, 'Frances', 'Observacion 10', NULL, 11, NULL, NULL),
+       (3, 'Italiano', 'Observacion 10', NULL, 12, NULL, NULL),
+       (4, 'Ingles', 'Observacion 10', NULL, 13, NULL, NULL),
+       (9, 'Ingles', 'Observacion 10', NULL, 14, NULL, NULL),
+       (7, 'Español', 'Observacion 10', NULL, 15, NULL, NULL);
+
 
 
 INSERT INTO componenteCurriculum (IdCurriculum, IdComponente, IdUsuario)
@@ -476,5 +501,4 @@ VALUES (5, 10, 3),
        (13, 6, 20),
        (13, 29, 20), # -
        (3, 28, 15);
-
 
