@@ -11,16 +11,16 @@
 CREATE SCHEMA IF NOT EXISTS LBD2023G02;
 USE LBD2023G02;
 
-# DELETE FROM componenteCurriculum ;
-# DELETE FROM componente;
-# DELETE FROM formacion;
-# DELETE FROM habilidad;
-# DELETE FROM experiencia;
-# DELETE FROM proyecto;
-# DELETE FROM curriculum;
-# DELETE FROM redSocialUsuario;
-# DELETE FROM redSocial;
-# DELETE FROM usuario;
+DELETE FROM componenteCurriculum ;
+DELETE FROM componente;
+DELETE FROM formacion;
+DELETE FROM habilidad;
+DELETE FROM experiencia;
+DELETE FROM proyecto;
+DELETE FROM curriculum;
+DELETE FROM redSocialUsuario;
+DELETE FROM redSocial;
+DELETE FROM usuario;
 
 -- Eliminar tablas en el orden correcto para evitar conflictos de clave foránea
 DROP TABLE IF EXISTS componenteCurriculum;
@@ -292,7 +292,8 @@ VALUES (1, 'Facebook', 'https://www.example.com/facebook_logo.png'),
        (7, 'Snapchat', 'https://www.example.com/snapchat_logo.png'),
        (8, 'TikTok', 'https://www.example.com/tiktok_logo.png'),
        (9, 'Reddit', 'https://www.example.com/reddit_logo.png'),
-       (10, 'WhatsApp', 'https://www.example.com/whatsapp_logo.png');
+       (10, 'WhatsApp', 'https://www.example.com/whatsapp_logo.png'),
+       (11, 'RedSocialSinUsuario', 'https://www.example.com/redsocialsinusuario_logo.png');
 
 INSERT INTO redSocialUsuario (IdRedSocialUsuario, IdUsuario, IdRedSocial, LinkRed)
 VALUES (1, 1, 5, 'https://www.ejemplo1.com'),
@@ -317,7 +318,8 @@ VALUES (1, 1, 5, 'https://www.ejemplo1.com'),
        (20, 14, 6, 'https://www.ejemplo20.com'),
        (21, 21, 7, 'https://www.ejemplo21.com'),
        (22, 17, 10, 'https://www.ejemplo22.com'),
-       (23, 16, 2, 'https://www.ejemplo23.com');
+       (23, 16, 2, 'https://www.ejemplo23.com'),
+       (24, 16, 10, 'https://www.ejemplo24.com');
 
 
 INSERT INTO curriculum (IdCurriculum, IdUsuario, curriculum, Descripcion, Banner, ImagenPerfil, Estado)
