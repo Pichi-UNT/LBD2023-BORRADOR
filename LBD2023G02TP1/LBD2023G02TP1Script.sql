@@ -11,16 +11,26 @@
 CREATE SCHEMA IF NOT EXISTS LBD2023G02;
 USE LBD2023G02;
 
-DELETE FROM componenteCurriculum ;
-DELETE FROM componente;
-DELETE FROM formacion;
-DELETE FROM habilidad;
-DELETE FROM experiencia;
-DELETE FROM proyecto;
-DELETE FROM curriculum;
-DELETE FROM redSocialUsuario;
-DELETE FROM redSocial;
-DELETE FROM usuario;
+DELETE
+FROM componenteCurriculum;
+DELETE
+FROM componente;
+DELETE
+FROM formacion;
+DELETE
+FROM habilidad;
+DELETE
+FROM experiencia;
+DELETE
+FROM proyecto;
+DELETE
+FROM curriculum;
+DELETE
+FROM redSocialUsuario;
+DELETE
+FROM redSocial;
+DELETE
+FROM usuario;
 
 -- Eliminar tablas en el orden correcto para evitar conflictos de clave foránea
 DROP TABLE IF EXISTS componenteCurriculum;
@@ -180,7 +190,7 @@ CREATE TABLE curriculum
     Descripcion  TEXT,
     Banner       VARCHAR(80),
     ImagenPerfil VARCHAR(80)  NOT NULL,
-    Estado       CHAR(1)      NOT NULL,
+    Estado       CHAR(1)      NOT NULL, -- V:Visible I:Invisible
     PRIMARY KEY (IdCurriculum, IdUsuario),
     UNIQUE INDEX UX_IdUsuarioCurriculum (IdUsuario, Curriculum),
     INDEX IX_Curriculum (Curriculum),
@@ -202,7 +212,9 @@ CREATE TABLE componenteCurriculum
     IdCurriculum INT NOT NULL,
     IdComponente INT NOT NULL,
     IdUsuario    INT NOT NULL,
+    Orden        INT NOT NULL,
     PRIMARY KEY (IdCurriculum, IdUsuario, IdComponente),
+    UNIQUE INDEX UX_IdCurriculumOrden(IdCurriculum, Orden),
     INDEX Ref319 (IdCurriculum, IdUsuario),
     INDEX Ref1436 (IdComponente, IdUsuario),
     CONSTRAINT Refcurriculum19 FOREIGN KEY (IdCurriculum, IdUsuario)
@@ -444,7 +456,7 @@ VALUES (1, '2023-04-17', '2023-04-18', 'https://link1.com', 'F', 'Descripción d
        (18, '2023-04-17', '2023-04-18', 'https://link18.com', 'F', 'Descripción del Proyecto 18', NULL),
        (19, '2023-04-17', '2023-04-18', 'https://link19.com', 'F', 'Descripción del Proyecto 19', NULL),
        (20, '2023-04-17', '2023-04-18', 'https://link20.com', 'F', 'Descripción del Proyecto 20', NULL);
-
+--
 INSERT INTO componente (IdUsuario, TituloComponente, Observacion, IdProyecto)
 VALUES (7, 'Plataforma de Gestión de Proyectos', 'Lorem ipsum dolor', 1),
        (12, 'Sistema de Reservas de Hoteles', 'Sit amet consectetur', 2),
@@ -466,7 +478,7 @@ VALUES (7, 'Plataforma de Gestión de Proyectos', 'Lorem ipsum dolor', 1),
        (10, 'Sistema de Gestión de Proyectos de Investigación', 'Sint occaecat cupidatat', 18),
        (13, 'Aplicación de Gestión de Contenido para Redes Sociales', 'Non proident sunt', 19),
        (5, 'Plataforma de Gestión de Ventas en Línea', 'Officia deserunt mollit', 20);
-
+--
 INSERT INTO componente (IdUsuario, TituloComponente, Observacion, IdExperiencia, IdHabilidad, IdFormacion,
                         IdProyecto)
 VALUES (6, 'Español', 'Observacion 10', NULL, 9, NULL, NULL),
@@ -503,4 +515,23 @@ VALUES (5, 10, 3),
        (13, 6, 20),
        (13, 29, 20), # -
        (3, 28, 15);
+--
+INSERT INTO formacion (IdFormacion, FechaInicio, FechaFin, Institucion, TipoFormacion)
+VALUES (6, '2014-11-01', NULL, 'Intituto N', 'grado'),
+       (7, '2016-01-01', NULL, 'INSTITUCION1', 'curso'),
+       (8, '2008-02-01', NULL, 'INSTITUCION2', 'posgrado'),
+       (9, '2011-08-01', '2022-11-21', 'INSTITUCION3', 'grado'),
+       (10, '2013-02-01', '2023-12-11', 'INSTITUCION3', 'grado');
+--
+INSERT INTO componente (IdUsuario, TituloComponente, Observacion, IdFormacion)
+VALUES (6, 'Licenciatura en Psicología', 'Observacion 11', 6),
+       (6, 'Maestría en Ingeniería Civil', 'Observacion 12', 7),
+       (6, 'Diplomado en Marketing Digital', 'Observacion 13', 8),
+       (6, 'Curso de Fotografía Avanzada', 'Observacion 14', 9),
+       (6, 'Técnico en Reparación de Computadoras', 'Observacion 15', 10);
+
+
+
+
+
 
