@@ -1,11 +1,14 @@
 -- OBSERVACION IMPORTANTE: SE REALIZARON ACTUALIZACION EN EL TP1 (MAS INSERTS EN ALGUNAS TABLAS Y LIGEROS CAMBIOS EN MODELO LOGICO)
 
 -- 1. Dado un usuario, listar todas sus formaciones dadas de alta entre un rango de fechas.
+SET @IdUsuario = 6;
+SET @FechaInicio = '2000-01-01';
+SET @FechaFin = '2020-01-01';
 SELECT TituloComponente, Observacion, FechaInicio, FechaFin, Institucion, TipoFormacion
 FROM componente c
          JOIN formacion f ON c.IdFormacion = f.IdFormacion
-WHERE c.IdUsuario = '6'
-  AND FechaInicio BETWEEN '2000-01-01' AND '2020-01-01';
+WHERE c.IdUsuario = @IdUsuario
+  AND FechaInicio BETWEEN @FechaInicio AND @FechaFin;
 
 -- 2. Realizar un listado de todas las redes sociales. Mostrar red, cantidad. Incluir las que no tengan usuarios en cero.
 SELECT r.IdRedSocial, r.red, COALESCE(COUNT(ru.IdRedSocial), 0)
@@ -23,16 +26,17 @@ ORDER BY DATEDIFF(FechaFin, FechaInicio) DESC;
 SELECT c.IdCurriculum, c.IdUsuario, c.Curriculum, c.Descripcion, c.Banner, c.ImagenPerfil, c.Estado
 FROM usuario u
          JOIN curriculum c on u.IdUsuario = c.IdUsuario
-WHERE u.IdUsuario = 6;
+WHERE u.IdUsuario = @IdUsuario;
 
 -- 5. Dado un curriculum. Mostrar sus componentes. Mostrar en el orden: Experiencias, Formaciones, Proyectos y habilidad finalmente.
 -- Ordenar cronológicamente en los componentes que tienen esta opción.
+SET @IdCurriculum = 8; -- Usamos el cv 8 porque realizamos muchos inserts dentro
 SELECT TituloComponente,
        Observacion,
        Empresa,
        experiencia.FechaInicio AS InicoExperencia,
        experiencia.FechaFin    AS FinExperencia,
-       experiencia.Descripcion,
+       experiencia.Descripcion AS DescripcionExperiencia,
        Hitos,
        formacion.FechaInicio   AS InicoFormacion,
        formacion.FechaFin      AS FinFormacion,
@@ -59,9 +63,8 @@ FROM (
                      LEFT JOIN formacion ON componente.IdFormacion = formacion.IdFormacion)
                  LEFT JOIN proyecto ON componente.IdProyecto = proyecto.IdProyecto)
              LEFT JOIN habilidad ON componente.IdHabilidad = habilidad.IdHabilidad)
-WHERE curriculum.IdCurriculum = '5'
-ORDER BY habilidad.IdHabilidad, proyecto.IdProyecto, proyecto.FechaInicio, formacion.IdFormacion, formacion.FechaInicio,
-         experiencia.IdExperiencia, experiencia.FechaInicio;
+WHERE curriculum.IdCurriculum = @IdCurriculum
+ORDER BY habilidad.IdHabilidad, proyecto.FechaInicio, formacion.FechaInicio, experiencia.FechaInicio;
 
 -- 6. Hacer un ranking con los idiomas que más cargan los usuarios.
 SELECT c.TituloComponente, COUNT(c.TituloComponente) CantidadUsuariosConIdioma
@@ -92,7 +95,6 @@ FROM v_RankingUsuariosPuestoLaboral;
 -- columna del tipo JSON para guardar las formaciones. Llenar esta tabla con los mismos
 -- datos del TP1 y resolver la consulta del apartado 1 (ambas consultas deben presentar la
 -- misma salida).
-
 
 CREATE TABLE componenteJSON
 (
@@ -207,23 +209,18 @@ values (6, 'Licenciatura en Psicología', 'Observacion 11',
        (6, 'Técnico en Reparación de Computadoras', 'Observacion 15',
         JSON_OBJECT('FechaInicio', '2013-02-01', 'FechaFin', '2023-12-11', 'Institucion', 'INSTITUCION3',
                     'TipoFormacion', 'grado'));
-
-SELECT * FROM componenteJSON where IdUsuario=6 AND Formacion is not NULL;
-
+SET @IdUsuario = 6;
+SET @FechaInicio = '2000-01-01';
+SET @FechaFin = '2020-01-01';
 SELECT TituloComponente, Observacion, FechaInicio, FechaFin, Institucion, TipoFormacion
-FROM componenteJSON JOIN JSON_TABLE(formacion, '$' COLUMNS (
+FROM componenteJSON, JSON_TABLE(formacion, '$' COLUMNS (
     FechaInicio VARCHAR(50) PATH '$.FechaInicio',
     FechaFin VARCHAR(50) PATH '$.FechaFin',
     Institucion VARCHAR(50) PATH '$.Institucion',
     TipoFormacion VARCHAR(50) PATH '$.TipoFormacion'
-    ))  AS TablaJSON ON 1=1 WHERE IdUsuario=6 AND FechaInicio BETWEEN '2000-01-01' AND '2014-01-01' ;
-
--- 1. Dado un usuario, listar todas sus formaciones dadas de alta entre un rango de fechas.
-SELECT TituloComponente, Observacion, FechaInicio, FechaFin, Institucion, TipoFormacion
-FROM componente c
-         JOIN formacion f ON c.IdFormacion = f.IdFormacion
-WHERE c.IdUsuario = '6'
-  AND FechaInicio BETWEEN '2000-01-01' AND '2014-01-01';
+    )) AS TablaJSON
+WHERE IdUsuario = @IdUsuario
+  AND FechaInicio BETWEEN @FechaInicio  AND @FechaFin;
 
 -- 10: Realizar una vista que considere importante para su modelo. También dejar escrito el enunciado de la misma.
 -- ELABORAR UNA VISTA QUE PERMITA OBTENER LAS REDES SOCIALES DE LOS USUARIOS, DE MANERA DE PODER FILTRAR TODAS LAS REDES DE UN USUARIO DE FORMA MAS SENCILLA

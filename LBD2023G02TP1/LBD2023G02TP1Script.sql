@@ -532,8 +532,71 @@ VALUES (6, 'Licenciatura en Psicología', 'Observacion 11', 6),
        (6, 'Curso de Fotografía Avanzada', 'Observacion 14', 9),
        (6, 'Técnico en Reparación de Computadoras', 'Observacion 15', 10);
 
--- Mas valores de prueba para facilitar la consulta del punto 5
+-- Mas valores de prueba para facilitar la consulta del punto 5 TP2
+
+INSERT INTO proyecto (IdProyecto, FechaInicio, FechaFin, Link, Estado, Descripcion, Recursos)
+VALUES(21,'2000-01-17','2020-10-25' ,'https://link21.com/', 'F','Descripción del Proyecto 21', NULL),
+(22,'2010-01-17','2015-10-25' ,'https://link22.com/', 'F','Descripción del Proyecto 22', NULL),
+(23,'2004-05-20','2011-11-14' ,'https://link23.com/', 'F','Descripción del Proyecto 23', NULL),
+(24,'2005-03-07','2006-12-25' ,'https://link24.com/', 'F','Descripción del Proyecto 24', NULL);
+
+select * from habilidad;
+INSERT INTO habilidad (IdHabilidad, TipoHabilidad, Escala, Detalles)
+VALUES (16, 'Blanda', 1, NULL),
+(17, 'Blanda', 3, NULL),
+(18, 'Dura', 5, NULL),
+(19, 'Blanda', 2, NULL);
+
+INSERT INTO formacion (IdFormacion, FechaInicio, FechaFin, Institucion, TipoFormacion)
+VALUES (11, '2021-08-01', NULL, 'FACULTAD DE DERECHO', 'grado'),
+(12, '2014-09-02', NULL, 'FACULTAD DE DERECHO', 'curso'),
+(13, '2021-04-24', '2022-05-04', 'MEDICINA', 'grado'),
+(14, '2002-01-31', '2022-12-31', 'FABRICA DE CHURROS', 'grado');
+
+INSERT INTO experiencia (IdExperiencia, Empresa, FechaInicio, FechaFin, Descripcion, Hitos)
+VALUES (11, 'Microsoft', '2018-01-01', '2019-12-31', 'Desarrollo de plataforma azure', '[
+  "Lanzamiento de la versión 1.0",
+  "Más de 1000 usuarios registrados"
+]'),
+(12, 'Globan', '2011-01-01', '2019-02-11', 'Programador de Java', '[
+  "Lanzamiento de la versión 16.0",
+  "Más de 100000 usuarios registrados"
+]'),
+(13, 'Systelco', '2000-09-21', '2001-07-01', 'Establecimiento de una aplicacion web', NULL);
+
+INSERT INTO componente (IdComponente, IdUsuario, TituloComponente, Observacion, IdExperiencia, IdHabilidad, IdFormacion,
+                        IdProyecto)
+VALUES (79, 6, 'NOMBRECOMPONENTE 79', 'Observacion 79', 11, NULL, NULL, NULL),
+(80, 6, 'NOMBRECOMPONENTE 80', 'Observacion 80', 12, NULL, NULL, NULL),
+(81, 6, 'NOMBRECOMPONENTE 81', 'Observacion 81', 13, NULL, NULL, NULL),
+(82, 6, 'NOMBRECOMPONENTE 82', 'Observacion 82', NULL, 16, NULL, NULL),
+(83, 6, 'NOMBRECOMPONENTE 83', 'Observacion 83', NULL, 17, NULL, NULL),
+(84, 6, 'NOMBRECOMPONENTE 84', 'Observacion 84', NULL, 18, NULL, NULL),
+(85, 6, 'NOMBRECOMPONENTE 85', 'Observacion 85', NULL, 19, NULL, NULL),
+(86, 6, 'NOMBRECOMPONENTE546', 'Observacion 86', NULL, NULL,11, NULL),
+(87, 6, 'NOMBRECOMPONENTE123', 'Observacion 87', NULL, NULL,12 , NULL),
+(88, 6, 'NOMBRECOMPONENTE YOYO', 'Observacion 88', NULL, NULL, 13, NULL),
+(89, 6, 'NOMBRECOMPONENTE 456456', 'Observacion 89', NULL, NULL, 14, NULL),
+(90, 6, 'NOMBRECOMPONENTE AÑGP', 'Observacion 90', NULL, NULL, NULL,21 ),
+(91, 6, 'NOMBRECOMPONENTE FSD', 'Observacion 91', NULL, NULL, NULL, 22),
+(92, 6, 'NOMBRECOMPONENTE ZCXCZX', 'Observacion 92', NULL, NULL, NULL, 23),
+(93, 6, 'NOMBRECOMPONENTE ULTIMA', 'Observacion 93', NULL, NULL, NULL, 24);
 
 
+INSERT INTO componenteCurriculum (IdCurriculum, IdUsuario,IdComponente, Orden)
+VALUES (8,6,79,20),
+       (8,6,80,21),
+       (8,6,81,22),
+       (8,6,82,23),
+       (8,6,83,24),
+       (8,6,84,25),
+       (8,6,85,26),
+       (8,6,86,27),
+       (8,6,87,28),
+       (8,6,88,29),
+       (8,6,90,30),
+       (8,6,91,31),
+       (8,6,92,32),
+       (8,6,93,33);
 
-
+select * from curriculum where IdUsuario=6;
