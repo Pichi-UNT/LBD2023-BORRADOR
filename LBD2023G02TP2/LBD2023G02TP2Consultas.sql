@@ -1,3 +1,5 @@
+-- OBSERVACION IMPORTANTE: SE REALIZARON ACTUALIZACION EN EL TP1 (MAS INSERTS EN ALGUNAS TABLAS Y LIGEROS CAMBIOS EN MODELO LOGICO)
+
 -- 1. Dado un usuario, listar todas sus formaciones dadas de alta entre un rango de fechas.
 SELECT TituloComponente, Observacion, FechaInicio, FechaFin, Institucion, TipoFormacion
 FROM componente c

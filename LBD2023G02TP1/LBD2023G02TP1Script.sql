@@ -11,30 +11,32 @@
 CREATE SCHEMA IF NOT EXISTS LBD2023G02;
 USE LBD2023G02;
 
-DELETE
-FROM componenteCurriculum;
-DELETE
-FROM componente;
-DELETE
-FROM formacion;
-DELETE
-FROM habilidad;
-DELETE
-FROM experiencia;
-DELETE
-FROM proyecto;
-DELETE
-FROM curriculum;
-DELETE
-FROM redSocialUsuario;
-DELETE
-FROM redSocial;
-DELETE
-FROM usuario;
+# DELETE
+# FROM componenteCurriculum;
+# DELETE
+# FROM componente;
+# DELETE FROM componentejson;
+# DELETE
+# FROM formacion;
+# DELETE
+# FROM experiencia;
+# DELETE
+# FROM habilidad;
+# DELETE
+# FROM proyecto;
+# DELETE
+# FROM curriculum;
+# DELETE
+# FROM redSocialUsuario;
+# DELETE
+# FROM redSocial;
+# DELETE
+# FROM usuario;
 
 -- Eliminar tablas en el orden correcto para evitar conflictos de clave foránea
 DROP TABLE IF EXISTS componenteCurriculum;
 DROP TABLE IF EXISTS componente;
+DROP TABLE IF EXISTS componentejson;
 DROP TABLE IF EXISTS formacion;
 DROP TABLE IF EXISTS habilidad;
 DROP TABLE IF EXISTS experiencia;
@@ -494,27 +496,27 @@ VALUES (6, 'Español', 'Observacion 10', NULL, 9, NULL, NULL),
 
 
 
-INSERT INTO componenteCurriculum (IdCurriculum, IdComponente, IdUsuario)
-VALUES (5, 10, 3),
-       (5, 18, 3),
-       (18, 1, 4),
-       (1, 4, 5),
-       (2, 19, 5),
-       (1, 35, 5),
-       (21, 31, 8),
-       (21, 9, 8),
-       (7, 22, 9),
-       (6, 5, 17),
-       (12, 17, 12),
-       (10, 20, 14),
-       (20, 14, 11),
-       (9, 11, 6),
-       (8, 11, 6),   # -
-       (3, 15, 15),
-       (18, 30, 4),
-       (13, 6, 20),
-       (13, 29, 20), # -
-       (3, 28, 15);
+INSERT INTO componenteCurriculum (IdCurriculum, IdComponente, IdUsuario,Orden)
+VALUES (5, 10, 3,1),
+       (5, 18, 3,2),
+       (18, 1, 4,3),
+       (1, 4, 5,4),
+       (2, 19, 5,5),
+       (1, 35, 5,6),
+       (21, 31, 8,7),
+       (21, 9, 8,8),
+       (7, 22, 9,9),
+       (6, 5, 17,10),
+       (12, 17, 12,11),
+       (10, 20, 14,12),
+       (20, 14, 11,13),
+       (9, 11, 6,14),
+       (8, 11, 6,15),   # -
+       (3, 15, 15,16),
+       (18, 30, 4,17),
+       (13, 6, 20,18),
+       (13, 29, 20,19), # -
+       (3, 28, 15,20);
 --
 INSERT INTO formacion (IdFormacion, FechaInicio, FechaFin, Institucion, TipoFormacion)
 VALUES (6, '2014-11-01', NULL, 'Intituto N', 'grado'),
@@ -530,7 +532,7 @@ VALUES (6, 'Licenciatura en Psicología', 'Observacion 11', 6),
        (6, 'Curso de Fotografía Avanzada', 'Observacion 14', 9),
        (6, 'Técnico en Reparación de Computadoras', 'Observacion 15', 10);
 
-
+-- Mas valores de prueba para facilitar la consulta del punto 5
 
 
 
