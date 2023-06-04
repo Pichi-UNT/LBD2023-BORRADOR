@@ -168,4 +168,142 @@ CALL sp_crearUsuario('Juan', 'Cascakes', 'carr.com',
                                    '123456879', 'Juan12345', '12345', @MensajeSalida);
 SELECT @MensajeSalida;
 
+-- 6. Borrado de un usuario
+DROP PROCEDURE IF EXISTS `sp_borrarUsuario`;
+DELIMITER //
+
+CREATE PROCEDURE `sp_borrarUsuario`(pIdUsuario int, OUT pMensaje varchar(256))
+FINAL:
+BEGIN
+    -- Descripcion
+    /*
+    Permite borrar un usuario siempre que este en estado B y no tenga curriculums ni componentes asociados.
+    Devuelve OK o el mensaje de error en pMensaje.
+    */
+    -- Declaraciones
+    -- Exception handler
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION -- lo puedo cambiar por el numero de la exception
+        BEGIN
+            SHOW ERRORS;
+            SET pMensaje = 'Error en la transacción. Contáctese con el administrador.';
+            ROLLBACK;
+        END;
+
+    IF NOT EXISTS(SELECT IdUsuario FROM usuario WHERE IdUsuario = pIdUsuario) THEN
+        SET pMensaje = 'Error al borrar usuario.';
+        LEAVE FINAL;
+    END IF;
+
+    IF pIdUsuario IS NULL THEN
+        SET pMensaje = 'El campo id usuario no puede ser nulo o estar vacio.';
+        LEAVE FINAL;
+    END IF;
+
+    IF NOT EXISTS(SELECT IdUsuario
+                  FROM usuario
+                  WHERE IdUsuario = pIdUsuario
+                    AND Estado = 'B') THEN
+        SET pMensaje = 'Error no puede borrar usuarios activados.';
+        LEAVE FINAL;
+    END IF;
+
+    IF EXISTS(SELECT IdUsuario FROM curriculum WHERE IdUsuario = pIdUsuario) THEN
+        SET pMensaje = 'Error al borrar usuario. Tiene curriculums asociados.';
+        LEAVE FINAL;
+    END IF;
+
+    IF EXISTS(SELECT IdUsuario FROM componente WHERE IdUsuario = pIdUsuario) THEN
+        SET pMensaje = 'Error al borrar usuario. Tiene proyectos/formaciones/habilidades/experiencias asociados.';
+        LEAVE FINAL;
+    END IF;
+
+    DELETE FROM usuario WHERE IdUsuario = pIdUsuario;
+
+    SET pMensaje = 'OK';
+
+END //
+
+DELIMITER ;
+
+-- Se crea un usuario para hacer las pruebas pertinentes
+CALL sp_crearUsuario('Por borrar', 'Por Borrar', 'Borrado@agustin.com',
+                                   '123456879', 'borrar12345', '12345', @MensajeSalida);
+SELECT @MensajeSalida;
+-- Agregar el id que aparezca en la salida anterior. Deberia ser el 24 si se mantuvo el orden de insercion nuestro
+update usuario
+set Estado = 'B'
+where IdUsuario=24;
+
+-- Caso de borrado exitoso. Mensaje: OK
+CALL sp_borrarUsuario(24,@MensajeSalida);
+SELECT @MensajeSalida;
+
+-- Se intenta borrar un usuario activo. Se espera mensaje: Error no puede borrar usuarios activados.
+CALL sp_borrarUsuario(19,@MensajeSalida);
+SELECT @MensajeSalida;
+
+-- Se intenta borrar un usuario con un curriculum asociado. Se espera mensaje: Error al borrar usuario. Tiene curriculums asociados.
+CALL sp_borrarUsuario(20,@MensajeSalida);
+SELECT @MensajeSalida;
+
+-- Se intenta borrar un usuario pasando el ID null. Se espera mensaje: Error al borrar usuario.
+CALL sp_borrarUsuario(null,@MensajeSalida);
+SELECT @MensajeSalida;
+
+-- 8.Listado ranking con los usuarios que más tiempo permanecen en un puesto laboral.
+DROP PROCEDURE IF EXISTS `sp_listarUsuariosConMasTiempoEnUnPuesto`;
+DELIMITER //
+
+CREATE PROCEDURE `sp_listarUsuariosConMasTiempoEnUnPuesto`()
+FINAL:
+BEGIN
+    -- Descripcion
+    /*
+    Este sp devuelve un ranking con los usuarios que más tiempo permanecen en un puesto laboral.
+    */
+    SELECT DISTINCT Nick, Nombre, Apellido
+    FROM ((usuario JOIN componente ON usuario.IdUsuario = componente.IdUsuario) JOIN experiencia
+          ON componente.IdExperiencia = experiencia.IdExperiencia)
+    ORDER BY DATEDIFF(FechaFin, FechaInicio) DESC;
+
+END //
+
+DELIMITER ;
+
+CALL sp_listarUsuariosConMasTiempoEnUnPuesto();
+
+-- 10.Realizar un procedimiento almacenado con alguna funcionalidad que considere de interés.
+DROP PROCEDURE IF EXISTS `sp_ObtenerRedesSocialesUsuario`;
+DELIMITER //
+
+CREATE PROCEDURE `sp_ObtenerRedesSocialesUsuario`(pIdUsuario int)
+FINAL:
+BEGIN
+    -- Descripcion
+    /*
+    Este sp permite obtener las redes sociales de un usuario a partir de su id
+    */
+    -- Declaraciones
+
+    -- Exception handler
+    SELECT r.LinkRed, rs.Red, rs.LogoLink
+    FROM usuario u
+             JOIN redSocialUsuario r ON u.IdUsuario = r.IdUsuario
+             JOIN redSocial rs
+             JOIN redSocial p ON p.IdRedSocial = r.IdRedSocial
+    WHERE r.IdUsuario=pIdUsuario;
+
+
+END //
+
+DELIMITER ;
+-- Uso correcto del SP
+CALL sp_ObtenerRedesSocialesUsuario(1);
+-- Si no se coloca un ID valido no se retorna ninguna salida. Tabla vacia.
+CALL sp_ObtenerRedesSocialesUsuario(NULL);
+CALL sp_ObtenerRedesSocialesUsuario(-1);
+-- Si se coloca un ID inexistente no se retorna ninguna salida. Tabla vacia.
+CALL sp_ObtenerRedesSocialesUsuario(5000);
+
+
 
