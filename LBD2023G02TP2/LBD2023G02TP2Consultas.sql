@@ -13,11 +13,11 @@ WHERE c.IdUsuario = @IdUsuario
 -- 2. Realizar un listado de todas las redes sociales. Mostrar red, cantidad. Incluir las que no tengan usuarios en cero.
 SELECT r.IdRedSocial, r.red, COALESCE(COUNT(ru.IdRedSocial), 0)
 FROM redSocial r
-         left JOIN redsocialusuario ru on r.IdRedSocial = ru.IdRedSocial
+         left JOIN redSocialUsuario ru on r.IdRedSocial = ru.IdRedSocial
 GROUP BY r.IdRedSocial, r.red;
 
 -- 3. Hacer un ranking con los usuarios que más tiempo permanecen en un puesto laboral.
-SELECT DISTINCT Nombre, Apellido, DATEDIFF(FechaFin, FechaInicio) AS DuracionEnHoras -- Dividir en 24
+SELECT DISTINCT Nick, Nombre, Apellido
 FROM ((usuario JOIN componente ON usuario.IdUsuario = componente.IdUsuario) JOIN experiencia
       ON componente.IdExperiencia = experiencia.IdExperiencia)
 ORDER BY DATEDIFF(FechaFin, FechaInicio) DESC;
@@ -57,8 +57,10 @@ FROM (
                  (
                      (
                          (curriculum JOIN componenteCurriculum
-                          ON curriculum.IdCurriculum = componenteCurriculum.IdCurriculum and curriculum.IdUsuario)
-                             JOIN componente ON componenteCurriculum.IdComponente = componente.IdComponente and componentecurriculum.IdUsuario= componente.IdUsuario)
+                          ON curriculum.IdCurriculum = componenteCurriculum.IdCurriculum and
+                             curriculum.IdUsuario = componenteCurriculum.IdUsuario)
+                             JOIN componente ON componenteCurriculum.IdComponente = componente.IdComponente and
+                                                componentecurriculum.IdUsuario = componente.IdUsuario)
                          LEFT JOIN experiencia ON componente.IdExperiencia = experiencia.IdExperiencia)
                      LEFT JOIN formacion ON componente.IdFormacion = formacion.IdFormacion)
                  LEFT JOIN proyecto ON componente.IdProyecto = proyecto.IdProyecto)
@@ -213,14 +215,15 @@ SET @IdUsuario = 6;
 SET @FechaInicio = '2000-01-01';
 SET @FechaFin = '2020-01-01';
 SELECT TituloComponente, Observacion, FechaInicio, FechaFin, Institucion, TipoFormacion
-FROM componenteJSON, JSON_TABLE(formacion, '$' COLUMNS (
-    FechaInicio VARCHAR(50) PATH '$.FechaInicio',
-    FechaFin VARCHAR(50) PATH '$.FechaFin',
-    Institucion VARCHAR(50) PATH '$.Institucion',
-    TipoFormacion VARCHAR(50) PATH '$.TipoFormacion'
-    )) AS TablaJSON
+FROM componenteJSON,
+     JSON_TABLE(formacion, '$' COLUMNS (
+         FechaInicio VARCHAR(50) PATH '$.FechaInicio',
+         FechaFin VARCHAR(50) PATH '$.FechaFin',
+         Institucion VARCHAR(50) PATH '$.Institucion',
+         TipoFormacion VARCHAR(50) PATH '$.TipoFormacion'
+         )) AS TablaJSON
 WHERE IdUsuario = @IdUsuario
-  AND FechaInicio BETWEEN @FechaInicio  AND @FechaFin;
+  AND FechaInicio BETWEEN @FechaInicio AND @FechaFin;
 
 -- 10: Realizar una vista que considere importante para su modelo. También dejar escrito el enunciado de la misma.
 -- ELABORAR UNA VISTA QUE PERMITA OBTENER LAS REDES SOCIALES DE LOS USUARIOS, DE MANERA DE PODER FILTRAR TODAS LAS REDES DE UN USUARIO DE FORMA MAS SENCILLA
