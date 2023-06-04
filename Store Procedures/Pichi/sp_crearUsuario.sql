@@ -64,7 +64,7 @@ BEGIN
 
     INSERT INTO usuario (Nombre, Apellido, Correo, Telefono, Nick, Pass, Estado, Rol)
     VALUES (pNombres, pApellidos, pCorreo, pTelefono, pNick, pPass, 'A', 'U');
-    SET pMensaje = ('OK ');
+    SET pMensaje = CONCAT('OK ','ID:',LAST_INSERT_ID());
 
 END //
 
