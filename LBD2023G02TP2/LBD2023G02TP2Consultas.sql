@@ -12,12 +12,12 @@ WHERE c.IdUsuario = @IdUsuario
 
 -- 2. Realizar un listado de todas las redes sociales. Mostrar red, cantidad. Incluir las que no tengan usuarios en cero.
 SELECT r.IdRedSocial, r.red, COALESCE(COUNT(ru.IdRedSocial), 0)
-FROM redsocial r
+FROM redSocial r
          left JOIN redsocialusuario ru on r.IdRedSocial = ru.IdRedSocial
 GROUP BY r.IdRedSocial, r.red;
 
 -- 3. Hacer un ranking con los usuarios que más tiempo permanecen en un puesto laboral.
-SELECT DISTINCT Nombre, Apellido, DATEDIFF(FechaFin, FechaInicio) AS DuracionEnHoras
+SELECT DISTINCT Nombre, Apellido, DATEDIFF(FechaFin, FechaInicio) AS DuracionEnHoras -- Dividir en 24
 FROM ((usuario JOIN componente ON usuario.IdUsuario = componente.IdUsuario) JOIN experiencia
       ON componente.IdExperiencia = experiencia.IdExperiencia)
 ORDER BY DATEDIFF(FechaFin, FechaInicio) DESC;
@@ -57,8 +57,8 @@ FROM (
                  (
                      (
                          (curriculum JOIN componenteCurriculum
-                          ON curriculum.IdCurriculum = componenteCurriculum.IdCurriculum)
-                             JOIN componente ON componenteCurriculum.IdComponente = componente.IdComponente)
+                          ON curriculum.IdCurriculum = componenteCurriculum.IdCurriculum and curriculum.IdUsuario)
+                             JOIN componente ON componenteCurriculum.IdComponente = componente.IdComponente and componentecurriculum.IdUsuario= componente.IdUsuario)
                          LEFT JOIN experiencia ON componente.IdExperiencia = experiencia.IdExperiencia)
                      LEFT JOIN formacion ON componente.IdFormacion = formacion.IdFormacion)
                  LEFT JOIN proyecto ON componente.IdProyecto = proyecto.IdProyecto)
