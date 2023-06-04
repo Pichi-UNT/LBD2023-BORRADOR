@@ -11,20 +11,32 @@
 CREATE SCHEMA IF NOT EXISTS LBD2023G02;
 USE LBD2023G02;
 
-# DELETE FROM componenteCurriculum ;
-# DELETE FROM componente;
-# DELETE FROM formacion;
-# DELETE FROM habilidad;
-# DELETE FROM experiencia;
-# DELETE FROM proyecto;
-# DELETE FROM curriculum;
-# DELETE FROM redSocialUsuario;
-# DELETE FROM redSocial;
-# DELETE FROM usuario;
+# DELETE
+# FROM componenteCurriculum;
+# DELETE
+# FROM componente;
+# DELETE FROM componentejson;
+# DELETE
+# FROM formacion;
+# DELETE
+# FROM experiencia;
+# DELETE
+# FROM habilidad;
+# DELETE
+# FROM proyecto;
+# DELETE
+# FROM curriculum;
+# DELETE
+# FROM redSocialUsuario;
+# DELETE
+# FROM redSocial;
+# DELETE
+# FROM usuario;
 
 -- Eliminar tablas en el orden correcto para evitar conflictos de clave foránea
 DROP TABLE IF EXISTS componenteCurriculum;
 DROP TABLE IF EXISTS componente;
+DROP TABLE IF EXISTS componentejson;
 DROP TABLE IF EXISTS formacion;
 DROP TABLE IF EXISTS habilidad;
 DROP TABLE IF EXISTS experiencia;
@@ -93,12 +105,12 @@ CREATE TABLE formacion
 
 CREATE TABLE usuario
 (
-    IdUsuario INT         AUTO_INCREMENT,
+    IdUsuario INT AUTO_INCREMENT,
     Nombre    VARCHAR(120) NOT NULL,
     Apellido  VARCHAR(120) NOT NULL,
     Correo    VARCHAR(256) NOT NULL,
     Telefono  VARCHAR(15),
-    Nick    VARCHAR(40)  NOT NULL,
+    Nick      VARCHAR(40)  NOT NULL,
     Pass      CHAR(60)     NOT NULL,
     Estado    CHAR(1)      NOT NULL DEFAULT 'A',
     Rol       CHAR(1)      NOT NULL DEFAULT 'U',
@@ -117,12 +129,12 @@ CREATE TABLE usuario
 CREATE TABLE proyecto
 (
     IdProyecto  INT AUTO_INCREMENT,
-    FechaInicio DATE         NOT NULL,
+    FechaInicio DATE    NOT NULL,
     FechaFin    DATE,
     Link        VARCHAR(120),
-    Estado      CHAR(1)      NOT NULL,
+    Estado      CHAR(1) NOT NULL,
     Descripcion TEXT,
-    Recursos    JSON        ,
+    Recursos    JSON,
     PRIMARY KEY (IdProyecto)
 ) ENGINE = INNODB
 ;
@@ -133,33 +145,34 @@ CREATE TABLE proyecto
 -- TABLE: componente
 --
 
-CREATE TABLE componente(
-    IdComponente     INT             AUTO_INCREMENT,
-    IdUsuario        INT             NOT NULL,
-    TituloComponente           VARCHAR(150)    NOT NULL,
+CREATE TABLE componente
+(
+    IdComponente     INT AUTO_INCREMENT,
+    IdUsuario        INT          NOT NULL,
+    TituloComponente VARCHAR(150) NOT NULL,
     Observacion      TEXT,
     IdExperiencia    INT,
     IdHabilidad      INT,
     IdFormacion      INT,
     IdProyecto       INT,
     PRIMARY KEY (IdComponente, IdUsuario),
-    UNIQUE INDEX UI_IdComponente(IdComponente),
-    INDEX Ref831(IdExperiencia),
-    INDEX Ref732(IdHabilidad),
-    INDEX Ref633(IdFormacion),
-    INDEX Ref538(IdProyecto),
-    INDEX Ref239(IdUsuario),
+    UNIQUE INDEX UI_IdComponente (IdComponente),
+    INDEX Ref831 (IdExperiencia),
+    INDEX Ref732 (IdHabilidad),
+    INDEX Ref633 (IdFormacion),
+    INDEX Ref538 (IdProyecto),
+    INDEX Ref239 (IdUsuario),
     CONSTRAINT Refexperiencia31 FOREIGN KEY (IdExperiencia)
-    REFERENCES experiencia(IdExperiencia),
+        REFERENCES experiencia (IdExperiencia),
     CONSTRAINT Refhabilidad32 FOREIGN KEY (IdHabilidad)
-    REFERENCES habilidad(IdHabilidad),
+        REFERENCES habilidad (IdHabilidad),
     CONSTRAINT Refformacion33 FOREIGN KEY (IdFormacion)
-    REFERENCES formacion(IdFormacion),
+        REFERENCES formacion (IdFormacion),
     CONSTRAINT Refproyecto38 FOREIGN KEY (IdProyecto)
-    REFERENCES proyecto(IdProyecto),
+        REFERENCES proyecto (IdProyecto),
     CONSTRAINT Refusuario39 FOREIGN KEY (IdUsuario)
-    REFERENCES usuario(IdUsuario)
-)ENGINE=INNODB;
+        REFERENCES usuario (IdUsuario)
+) ENGINE = INNODB;
 
 
 
@@ -171,22 +184,23 @@ CREATE TABLE componente(
 -- TABLE: curriculum
 --
 
-CREATE TABLE curriculum(
-    IdCurriculum    INT             AUTO_INCREMENT,
-    IdUsuario       INT             NOT NULL,
-    Curriculum      VARCHAR(150)    NOT NULL,
-    Descripcion     TEXT,
-    Banner          VARCHAR(80),
-    ImagenPerfil    VARCHAR(80)     NOT NULL,
-    Estado          CHAR(1)         NOT NULL,
+CREATE TABLE curriculum
+(
+    IdCurriculum INT AUTO_INCREMENT,
+    IdUsuario    INT          NOT NULL,
+    Curriculum   VARCHAR(150) NOT NULL,
+    Descripcion  TEXT,
+    Banner       VARCHAR(80),
+    ImagenPerfil VARCHAR(80)  NOT NULL,
+    Estado       CHAR(1)      NOT NULL, -- V:Visible I:Invisible
     PRIMARY KEY (IdCurriculum, IdUsuario),
-    UNIQUE INDEX UX_IdUsuarioCurriculum(IdUsuario, Curriculum),
-    INDEX IX_Curriculum(Curriculum),
-    UNIQUE INDEX UX_IdCurriculum(IdCurriculum),
-    INDEX Ref240(IdUsuario),
+    UNIQUE INDEX UX_IdUsuarioCurriculum (IdUsuario, Curriculum),
+    INDEX IX_Curriculum (Curriculum),
+    UNIQUE INDEX UX_IdCurriculum (IdCurriculum),
+    INDEX Ref240 (IdUsuario),
     CONSTRAINT Refusuario40 FOREIGN KEY (IdUsuario)
-    REFERENCES usuario(IdUsuario)
-)ENGINE=INNODB
+        REFERENCES usuario (IdUsuario)
+) ENGINE = INNODB
 ;
 
 
@@ -200,7 +214,9 @@ CREATE TABLE componenteCurriculum
     IdCurriculum INT NOT NULL,
     IdComponente INT NOT NULL,
     IdUsuario    INT NOT NULL,
-    PRIMARY KEY (IdCurriculum,IdUsuario, IdComponente),
+    Orden        INT NOT NULL,
+    PRIMARY KEY (IdCurriculum, IdUsuario, IdComponente),
+    UNIQUE INDEX UX_IdCurriculumOrden(IdCurriculum, Orden),
     INDEX Ref319 (IdCurriculum, IdUsuario),
     INDEX Ref1436 (IdComponente, IdUsuario),
     CONSTRAINT Refcurriculum19 FOREIGN KEY (IdCurriculum, IdUsuario)
@@ -290,7 +306,8 @@ VALUES (1, 'Facebook', 'https://www.example.com/facebook_logo.png'),
        (7, 'Snapchat', 'https://www.example.com/snapchat_logo.png'),
        (8, 'TikTok', 'https://www.example.com/tiktok_logo.png'),
        (9, 'Reddit', 'https://www.example.com/reddit_logo.png'),
-       (10, 'WhatsApp', 'https://www.example.com/whatsapp_logo.png');
+       (10, 'WhatsApp', 'https://www.example.com/whatsapp_logo.png'),
+       (11, 'RedSocialSinUsuario', 'https://www.example.com/redsocialsinusuario_logo.png');
 
 INSERT INTO redSocialUsuario (IdRedSocialUsuario, IdUsuario, IdRedSocial, LinkRed)
 VALUES (1, 1, 5, 'https://www.ejemplo1.com'),
@@ -315,7 +332,8 @@ VALUES (1, 1, 5, 'https://www.ejemplo1.com'),
        (20, 14, 6, 'https://www.ejemplo20.com'),
        (21, 21, 7, 'https://www.ejemplo21.com'),
        (22, 17, 10, 'https://www.ejemplo22.com'),
-       (23, 16, 2, 'https://www.ejemplo23.com');
+       (23, 16, 2, 'https://www.ejemplo23.com'),
+       (24, 16, 10, 'https://www.ejemplo24.com');
 
 
 INSERT INTO curriculum (IdCurriculum, IdUsuario, curriculum, Descripcion, Banner, ImagenPerfil, Estado)
@@ -384,7 +402,18 @@ VALUES (1, 'Blanda', 1, NULL),
        (4, 'Blanda', 2, NULL),
        (5, 'Dura', 2, '[
          "Responsive Design"
-       ]');
+       ]'),
+       (6, 'Idioma', 1, NULL),
+       (7, 'Idioma', 5, NULL),
+       (8, 'Idioma', 3, NULL),
+       (9, 'Idioma', 2, NULL),
+       (10, 'Idioma', 1, NULL),
+       (11, 'Idioma', 4, NULL),
+       (12, 'Idioma', 4, NULL),
+       (13, 'Idioma', 2, NULL),
+       (14, 'Idioma', 3, NULL),
+       (15, 'Idioma', 3, NULL);
+;
 
 
 INSERT INTO componente (IdComponente, IdUsuario, TituloComponente, Observacion, IdExperiencia, IdHabilidad, IdFormacion,
@@ -400,7 +429,6 @@ VALUES (1, 4, 'Desarrollador en microsoft', 'Observacion 1', 1, NULL, NULL, NULL
        (8, 22, 'Curso primeros auxilios', 'Observacion 5', NULL, 3, NULL, NULL),
        (9, 8, 'Congreso de Marketing Digital', 'Observacion 6', NULL, 4, NULL, NULL),
        (10, 3, 'Curso de introduccion de metodologias agiles', 'Observacion 7', NULL, 5, NULL, NULL),
-
        (11, 6, 'Habilidades en Análisis de Negocios', NULL, NULL, NULL, 1, NULL),
        (12, 1, 'Python', 'Observacion 8', NULL, NULL, 2, NULL),
        (13, 7, 'Diseño de Interfaces de Usuario', NULL, NULL, NULL, 3, NULL),
@@ -430,7 +458,7 @@ VALUES (1, '2023-04-17', '2023-04-18', 'https://link1.com', 'F', 'Descripción d
        (18, '2023-04-17', '2023-04-18', 'https://link18.com', 'F', 'Descripción del Proyecto 18', NULL),
        (19, '2023-04-17', '2023-04-18', 'https://link19.com', 'F', 'Descripción del Proyecto 19', NULL),
        (20, '2023-04-17', '2023-04-18', 'https://link20.com', 'F', 'Descripción del Proyecto 20', NULL);
-
+--
 INSERT INTO componente (IdUsuario, TituloComponente, Observacion, IdProyecto)
 VALUES (7, 'Plataforma de Gestión de Proyectos', 'Lorem ipsum dolor', 1),
        (12, 'Sistema de Reservas de Hoteles', 'Sit amet consectetur', 2),
@@ -452,29 +480,123 @@ VALUES (7, 'Plataforma de Gestión de Proyectos', 'Lorem ipsum dolor', 1),
        (10, 'Sistema de Gestión de Proyectos de Investigación', 'Sint occaecat cupidatat', 18),
        (13, 'Aplicación de Gestión de Contenido para Redes Sociales', 'Non proident sunt', 19),
        (5, 'Plataforma de Gestión de Ventas en Línea', 'Officia deserunt mollit', 20);
+--
+INSERT INTO componente (IdUsuario, TituloComponente, Observacion, IdExperiencia, IdHabilidad, IdFormacion,
+                        IdProyecto)
+VALUES (6, 'Español', 'Observacion 10', NULL, 9, NULL, NULL),
+       (8, 'Español', 'Observacion 10', NULL, 10, NULL, NULL),
+       (11, 'Ingles', 'Observacion 10', NULL, 6, NULL, NULL),
+       (4, 'Ingles', 'Observacion 10', NULL, 7, NULL, NULL),
+       (6, 'Ingles', 'Observacion 10', NULL, 8, NULL, NULL),
+       (1, 'Frances', 'Observacion 10', NULL, 11, NULL, NULL),
+       (3, 'Italiano', 'Observacion 10', NULL, 12, NULL, NULL),
+       (4, 'Ingles', 'Observacion 10', NULL, 13, NULL, NULL),
+       (9, 'Ingles', 'Observacion 10', NULL, 14, NULL, NULL),
+       (7, 'Español', 'Observacion 10', NULL, 15, NULL, NULL);
 
 
 
-INSERT INTO componenteCurriculum (IdCurriculum, IdComponente, IdUsuario)
-VALUES (5, 10, 3),
-       (5, 18, 3),
-       (18, 1, 4),
-       (1, 4, 5),
-       (2, 19, 5),
-       (1, 35, 5),
-       (21, 31, 8),
-       (21, 9, 8),
-       (7, 22, 9),
-       (6, 5, 17),
-       (12, 17, 12),
-       (10, 20, 14),
-       (20, 14, 11),
-       (9, 11, 6),
-       (8, 11, 6),   # -
-       (3, 15, 15),
-       (18, 30, 4),
-       (13, 6, 20),
-       (13, 29, 20), # -
-       (3, 28, 15);
+INSERT INTO componenteCurriculum (IdCurriculum, IdComponente, IdUsuario,Orden)
+VALUES (5, 10, 3,1),
+       (5, 18, 3,2),
+       (18, 1, 4,3),
+       (1, 4, 5,4),
+       (2, 19, 5,5),
+       (1, 35, 5,6),
+       (21, 31, 8,7),
+       (21, 9, 8,8),
+       (7, 22, 9,9),
+       (6, 5, 17,10),
+       (12, 17, 12,11),
+       (10, 20, 14,12),
+       (20, 14, 11,13),
+       (9, 11, 6,14),
+       (8, 11, 6,15),   # -
+       (3, 15, 15,16),
+       (18, 30, 4,17),
+       (13, 6, 20,18),
+       (13, 29, 20,19), # -
+       (3, 28, 15,20);
+--
+INSERT INTO formacion (IdFormacion, FechaInicio, FechaFin, Institucion, TipoFormacion)
+VALUES (6, '2014-11-01', NULL, 'Intituto N', 'grado'),
+       (7, '2016-01-01', NULL, 'INSTITUCION1', 'curso'),
+       (8, '2008-02-01', NULL, 'INSTITUCION2', 'posgrado'),
+       (9, '2011-08-01', '2022-11-21', 'INSTITUCION3', 'grado'),
+       (10, '2013-02-01', '2023-12-11', 'INSTITUCION3', 'grado');
+--
+INSERT INTO componente (IdUsuario, TituloComponente, Observacion, IdFormacion)
+VALUES (6, 'Licenciatura en Psicología', 'Observacion 11', 6),
+       (6, 'Maestría en Ingeniería Civil', 'Observacion 12', 7),
+       (6, 'Diplomado en Marketing Digital', 'Observacion 13', 8),
+       (6, 'Curso de Fotografía Avanzada', 'Observacion 14', 9),
+       (6, 'Técnico en Reparación de Computadoras', 'Observacion 15', 10);
+
+-- Mas valores de prueba para facilitar la consulta del punto 5 TP2
+
+INSERT INTO proyecto (IdProyecto, FechaInicio, FechaFin, Link, Estado, Descripcion, Recursos)
+VALUES(21,'2000-01-17','2020-10-25' ,'https://link21.com/', 'F','Descripción del Proyecto 21', NULL),
+(22,'2010-01-17','2015-10-25' ,'https://link22.com/', 'F','Descripción del Proyecto 22', NULL),
+(23,'2004-05-20','2011-11-14' ,'https://link23.com/', 'F','Descripción del Proyecto 23', NULL),
+(24,'2005-03-07','2006-12-25' ,'https://link24.com/', 'F','Descripción del Proyecto 24', NULL);
+
+select * from habilidad;
+INSERT INTO habilidad (IdHabilidad, TipoHabilidad, Escala, Detalles)
+VALUES (16, 'Blanda', 1, NULL),
+(17, 'Blanda', 3, NULL),
+(18, 'Dura', 5, NULL),
+(19, 'Blanda', 2, NULL);
+
+INSERT INTO formacion (IdFormacion, FechaInicio, FechaFin, Institucion, TipoFormacion)
+VALUES (11, '2021-08-01', NULL, 'FACULTAD DE DERECHO', 'grado'),
+(12, '2014-09-02', NULL, 'FACULTAD DE DERECHO', 'curso'),
+(13, '2021-04-24', '2022-05-04', 'MEDICINA', 'grado'),
+(14, '2002-01-31', '2022-12-31', 'FABRICA DE CHURROS', 'grado');
+
+INSERT INTO experiencia (IdExperiencia, Empresa, FechaInicio, FechaFin, Descripcion, Hitos)
+VALUES (11, 'Microsoft', '2018-01-01', '2019-12-31', 'Desarrollo de plataforma azure', '[
+  "Lanzamiento de la versión 1.0",
+  "Más de 1000 usuarios registrados"
+]'),
+(12, 'Globan', '2011-01-01', '2019-02-11', 'Programador de Java', '[
+  "Lanzamiento de la versión 16.0",
+  "Más de 100000 usuarios registrados"
+]'),
+(13, 'Systelco', '2000-09-21', '2001-07-01', 'Establecimiento de una aplicacion web', NULL);
+
+INSERT INTO componente (IdComponente, IdUsuario, TituloComponente, Observacion, IdExperiencia, IdHabilidad, IdFormacion,
+                        IdProyecto)
+VALUES (79, 6, 'NOMBRECOMPONENTE 79', 'Observacion 79', 11, NULL, NULL, NULL),
+(80, 6, 'NOMBRECOMPONENTE 80', 'Observacion 80', 12, NULL, NULL, NULL),
+(81, 6, 'NOMBRECOMPONENTE 81', 'Observacion 81', 13, NULL, NULL, NULL),
+(82, 6, 'NOMBRECOMPONENTE 82', 'Observacion 82', NULL, 16, NULL, NULL),
+(83, 6, 'NOMBRECOMPONENTE 83', 'Observacion 83', NULL, 17, NULL, NULL),
+(84, 6, 'NOMBRECOMPONENTE 84', 'Observacion 84', NULL, 18, NULL, NULL),
+(85, 6, 'NOMBRECOMPONENTE 85', 'Observacion 85', NULL, 19, NULL, NULL),
+(86, 6, 'NOMBRECOMPONENTE546', 'Observacion 86', NULL, NULL,11, NULL),
+(87, 6, 'NOMBRECOMPONENTE123', 'Observacion 87', NULL, NULL,12 , NULL),
+(88, 6, 'NOMBRECOMPONENTE YOYO', 'Observacion 88', NULL, NULL, 13, NULL),
+(89, 6, 'NOMBRECOMPONENTE 456456', 'Observacion 89', NULL, NULL, 14, NULL),
+(90, 6, 'NOMBRECOMPONENTE AÑGP', 'Observacion 90', NULL, NULL, NULL,21 ),
+(91, 6, 'NOMBRECOMPONENTE FSD', 'Observacion 91', NULL, NULL, NULL, 22),
+(92, 6, 'NOMBRECOMPONENTE ZCXCZX', 'Observacion 92', NULL, NULL, NULL, 23),
+(93, 6, 'NOMBRECOMPONENTE ULTIMA', 'Observacion 93', NULL, NULL, NULL, 24);
 
 
+INSERT INTO componenteCurriculum (IdCurriculum, IdUsuario,IdComponente, Orden)
+VALUES (8,6,79,20),
+       (8,6,80,21),
+       (8,6,81,22),
+       (8,6,82,23),
+       (8,6,83,24),
+       (8,6,84,25),
+       (8,6,85,26),
+       (8,6,86,27),
+       (8,6,87,28),
+       (8,6,88,29),
+       (8,6,90,30),
+       (8,6,91,31),
+       (8,6,92,32),
+       (8,6,93,33);
+
+select * from curriculum where IdUsuario=6;
