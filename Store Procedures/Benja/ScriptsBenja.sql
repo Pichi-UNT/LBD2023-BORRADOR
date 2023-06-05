@@ -21,16 +21,16 @@ BEGIN
             (pPass IS NULL) OR 
             (pEstado IS NULL) OR 
             (pRol IS NULL) THEN
-        SET mensajeSalida="Error en los datos del Usuario";
+        SET mensajeSalida='Error en los datos del Usuario';
         LEAVE  FINAL;
     ELSEIF NOT EXISTS (SELECT * FROM Usuario WHERE IdUsuario = pIdUsuario) THEN
-		SET mensajeSalida="El usuario no existe";
+		SET mensajeSalida='El usuario no existe';
         LEAVE  FINAL;
 	ELSEIF EXISTS (SELECT * FROM Usuario WHERE (Correo = pCorreo) AND (IdUsuario=pIdUsuario)) THEN
-		SET mensajeSalida="Ya existe un usuario con ese Correo";
+		SET mensajeSalida='Ya existe un usuario con ese Correo';
         LEAVE  FINAL;
     ELSEIF EXISTS (SELECT * FROM Usuario WHERE (Nick = pNick) AND (IdUsuario=pIdUsuario)) THEN
-		SET mensajeSalida="Ya existe un usuario con ese Nick";
+		SET mensajeSalida='Ya existe un usuario con ese Nick';
         LEAVE  FINAL;
 	IF pCorreo NOT REGEXP
        "^[a-zA-Z0-9][a-zA-Z0-9.!#$%&'+-/=?^_`{|}~]?[a-zA-Z0-9.-]?@[a-zA-Z0-9][a-zA-Z0-9.-]*?[a-zA-Z0-9]?\.[a-zA-Z]{2,63}$" THEN
@@ -49,7 +49,7 @@ BEGIN
         Estado=pEstado ,
         Rol=pRol
     WHERE IdUsuario = pIdUsuario;
-    SET mensajeSalida="OK";
+    SET mensajeSalida='OK';
     COMMIT;
     END IF;
 END //
